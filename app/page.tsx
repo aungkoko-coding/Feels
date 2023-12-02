@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <>
-      <section className="flex flex-col items-center relative">
+      <section className="flex flex-col items-center relative mb-10">
         <h1 className="head_text text-center">
           Share the Emotion,
           <br className="max-md:hidden" />
