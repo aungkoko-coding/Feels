@@ -8,6 +8,8 @@ export default function downloadAsImage(
 ) {
   const element = document.getElementById(elementId);
   if (element) {
-    htmlToImage.toPng(element).then((dataUrl) => download(dataUrl, fileName));
+    htmlToImage
+      .toPng(element, { width: 100, height: 50 })
+      .then((dataUrl) => download(dataUrl, fileName));
   }
 }
