@@ -9,19 +9,27 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.1",
+    "@tanstack/react-query": "^5.12.2",
+    "axios": "^1.6.2",
+    "client-only": "^0.0.1",
+    "downloadjs": "^1.4.7",
+    "html-to-image": "^1.11.11",
+    "html2canvas": "^1.4.1",
+    "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.0.3"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@types/downloadjs": "^1.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.3",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.3"
+    "typescript": "^5"
   }
 }
