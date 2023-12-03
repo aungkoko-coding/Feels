@@ -7,8 +7,8 @@ const AboutPage = () => {
         Feels
       </h1>
       <p className="desc text-center">
-        is an online platform on which users can share their emotions
-        anonymously. It is similar to{" "}
+        s an online platform where users can share their emotions anonymously.
+        Similar to{" "}
         <a
           href="https://ngl.link/"
           target="_blank"
@@ -16,11 +16,11 @@ const AboutPage = () => {
         >
           NGL
         </a>
-        , but we additionally allow users to attach maximum three youtube videos
-        along with their messages to easily express their feelings. We also
-        provide an option to share those youtube videos publicly, only
-        authenticated users can see. Sound amazing, right? Let&apos;s start
-        using{" "}
+        , we go a step further by allowing users to attach a maximum of three
+        YouTube videos along with their messages to easily express their
+        feelings. Moreover, we offer an option to share these YouTube videos
+        publicly, visible only to authenticated users. Sounds amazing, right?
+        Let's start using{" "}
         <Link href="/" className="font-bold italic title-font text-orange-600">
           Feels
         </Link>
