@@ -3,11 +3,22 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="z-10 relative py-3 mt-auto bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500">
-      <div className="container px-1 flex flex-col items-center text-white">
-        <Link href="/guide" className="italic underline">
-          Usage Guide?
-        </Link>
-        <p>&copy;2023 Aung Ko Ko. All rights reserved.</p>
+      <div className="container px-1 flex flex-col items-center space-y-5 text-white">
+        <div className="flex space-x-4">
+          <Link href="/about" className="underline">
+            About
+          </Link>
+          <Link href="/privacy" className="underline">
+            Privacy
+          </Link>
+          <Link href="/guide" className="underline">
+            Usage Guide
+          </Link>
+          <Link href="/guide" className="underline">
+            Contact Us
+          </Link>
+        </div>
+        <p className="text-sm">&copy;2023 Aung Ko Ko. All rights reserved.</p>
       </div>
     </footer>
   );
