@@ -7,7 +7,7 @@ const AboutPage = () => {
         Feels
       </h1>
       <p className="desc text-center">
-        s an online platform where users can share their emotions anonymously.
+        is an online platform where users can share their emotions anonymously.
         Similar to{" "}
         <a
           href="https://ngl.link/"
@@ -20,7 +20,7 @@ const AboutPage = () => {
         YouTube videos along with their messages to easily express their
         feelings. Moreover, we offer an option to share these YouTube videos
         publicly, visible only to authenticated users. Sounds amazing, right?
-        Let's start using{" "}
+        Let&apos;s start using{" "}
         <Link href="/" className="font-bold italic title-font text-orange-600">
           Feels
         </Link>
