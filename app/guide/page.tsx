@@ -18,6 +18,10 @@ const UsageGuidePage = () => {
             </>
           }
         />
+        <Step
+          step={4}
+          description="You can share any incoming messages optionally attached with your reply."
+        />
       </ul>
     </section>
   );
