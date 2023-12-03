@@ -14,9 +14,9 @@ const Footer = () => {
           <Link href="/guide" className="underline">
             Usage Guide
           </Link>
-          <Link href="/guide" className="underline">
+          <a href="mailto: feels&emotions@gmail.com" className="underline">
             Contact Us
-          </Link>
+          </a>
         </div>
         <p className="text-sm">&copy;2023 Aung Ko Ko. All rights reserved.</p>
       </div>
