@@ -3,7 +3,9 @@ import Step from "../ui/step";
 const UsageGuidePage = () => {
   return (
     <section>
-      <h1 className="text-4xl font-extrabold title-font">How to use?</h1>
+      <h1 className="text-4xl font-extrabold title-font text-center lg:text-start">
+        How to use?
+      </h1>
       <ul className="my-16 space-y-10">
         <Step step={1} description="Create an account." />
         <Step step={2} description="Once you have an account, go to profile." />

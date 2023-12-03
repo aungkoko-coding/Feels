@@ -1,6 +1,6 @@
 const Navbar = () => {
   return (
-    <header className="z-10 backdrop-blur-sm sticky top-0">
+    <header className="z-20 backdrop-blur-sm sticky top-0">
       <nav className="container px-1 flex py-2 items-center ">
         <img src="/assets/images/logo.png" alt="" />
         <div className="ml-auto space-x-2">
