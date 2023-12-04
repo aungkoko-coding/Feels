@@ -3,5 +3,6 @@ export type FeedItemType = {
   title: string;
   description?: string;
   thumbnailUrl: string;
+  duration: string;
   url: string;
 };

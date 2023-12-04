@@ -7,11 +7,12 @@ const FeedItem = ({
   description,
   url,
   thumbnailUrl,
+  duration,
 }: FeedItemType) => {
   return (
     <article className="flex flex-col">
       <Link
-        href={`/feed/${id}`}
+        href={`/feed/play?vid=${id}`}
         className="relative overflow-hidden group rounded-md"
       >
         <img
@@ -19,6 +20,9 @@ const FeedItem = ({
           alt={title}
           className="max-h-[200px] aspect-video  group-hover:scale-105 duration-300 origin-center"
         />
+        <span className="absolute right-0 bottom-0 bg-black/80 text-white px-1 rounded-md text-[12px]">
+          {duration}
+        </span>
       </Link>
       <div className="py-2">
         <h2 className="font-extrabold line-clamp-2">{title}</h2>

@@ -78,3 +78,16 @@
 .orange_gradient {
   @apply bg_orange_gradient bg-clip-text text-transparent;
 }
+
+.rotate {
+  animation: rotate_ani 1s linear infinite;
+}
+
+@keyframes rotate_ani {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
