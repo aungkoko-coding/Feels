@@ -1,5 +1,5 @@
-import { feed } from "../lib/feed-data";
-import FeedItem from "../ui/feed/item";
+import { feed } from "../../lib/feed-data";
+import FeedItem from "../../ui/feed/item";
 
 const FeedPage = () => {
   return (
