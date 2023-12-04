@@ -1,4 +1,4 @@
-import Step from "../ui/step";
+import Step from "../../ui/step";
 
 const UsageGuidePage = () => {
   return (
