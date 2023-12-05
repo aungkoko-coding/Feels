@@ -18,7 +18,7 @@ const FeedItem = ({
         <img
           src={thumbnailUrl}
           alt={title}
-          className="max-h-[200px] aspect-video  group-hover:scale-105 duration-300 origin-center"
+          className="max-h-[250px] w-full aspect-video group-hover:scale-105 duration-300 origin-center"
         />
         <span className="absolute right-0 bottom-0 bg-black/80 text-white px-1 rounded-md text-[12px]">
           {duration}
