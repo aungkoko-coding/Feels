@@ -14,15 +14,14 @@ const YoutubeForm = ({
   closeForm: () => void;
 }) => {
   const [formData, setFormData] = useState<YoutubeFormDataType>({
-    title: "",
     description: "",
     youtubeLink: "",
     public: false,
-    timestamp: 0,
+    timestamp: 0, // this property is only used to render list
   });
 
   const [formError, setFormError] = useState<{
-    errorAt: "title" | "youtubeLink" | "description";
+    errorAt: "youtubeLink" | "description";
     warnType?: boolean;
     message: string;
   } | null>(null);
@@ -30,13 +29,7 @@ const YoutubeForm = ({
   const handleChange = (e: any) => {
     // React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     const { name, value } = e.target;
-    if (name === "title" && value.length >= 100) {
-      setFormError({
-        errorAt: "title",
-        warnType: true,
-        message: "Maximum characters of title must be 100!",
-      });
-    } else if (name === "description" && value.length >= 300) {
+    if (name === "description" && value.length >= 300) {
       setFormError({
         errorAt: name,
         warnType: true,
@@ -57,13 +50,6 @@ const YoutubeForm = ({
       setFormError({
         errorAt: "youtubeLink",
         message: "Please fill out youtube link!",
-      });
-      return;
-    }
-    if (!formData.title) {
-      setFormError({
-        errorAt: "title",
-        message: "Please fill out title!",
       });
       return;
     }
@@ -112,20 +98,11 @@ const YoutubeForm = ({
         onChange={handleChange}
         onBlur={handleYoutubeLinkFieldBlur}
       />
-      <input
-        type="text"
-        name="title"
-        id="title"
-        placeholder="Enter title *"
-        className="px-5 py-4 w-full outline-none rounded-xl bg-white text-lg font-medium placeholder:text-black/40 placeholder:font-medium"
-        value={formData.title}
-        onChange={handleChange}
-      />
       <textarea
         name="description"
         id="description"
         rows={3}
-        placeholder="Enter description"
+        placeholder="Tell me how it relate to this video..."
         className="px-5 py-4 w-full outline-none rounded-xl bg-white text-lg font-medium placeholder:text-black/40 placeholder:font-medium"
         value={formData.description}
         onChange={handleChange}
@@ -145,7 +122,10 @@ const YoutubeForm = ({
         >
           Cancel
         </button>
-        <button className="flex-1 text-lg font-medium active:scale-95 duration-200 flex items-center justify-center space-x-1 py-2 text-white border border-transparent bg-black rounded-xl">
+        <button
+          type="submit"
+          className="flex-1 text-lg font-medium active:scale-95 duration-200 flex items-center justify-center space-x-1 py-2 text-white border border-transparent bg-black rounded-xl"
+        >
           Add
         </button>
       </div>

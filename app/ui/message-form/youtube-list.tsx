@@ -17,13 +17,10 @@ const YoutubeList = ({
   return (
     <ul
       ref={parent}
-      className="my-10  rounded-xl bg-orange-300 divide-y-[1px] divide-orange-600 border border-orange-600"
+      className="my-10  rounded-xl bg-orange-300 divide-y-[1px] divide-orange-600"
     >
       {youtubeVideos.map(
-        (
-          { title, description, youtubeLink, public: visible, timestamp },
-          i
-        ) => (
+        ({ description, youtubeLink, public: visible, timestamp }, i) => (
           <li key={timestamp} className="px-5 py-4 relative">
             <h2 className="font-bold w-[80%] flex items-center space-x-2">
               {visible ? (
@@ -47,10 +44,9 @@ const YoutubeList = ({
                   <path d="M208,76H180V56A52,52,0,0,0,76,56V76H48A20,20,0,0,0,28,96V208a20,20,0,0,0,20,20H208a20,20,0,0,0,20-20V96A20,20,0,0,0,208,76ZM100,56a28,28,0,0,1,56,0V76H100ZM204,204H52V100H204Zm-60-52a16,16,0,1,1-16-16A16,16,0,0,1,144,152Z"></path>
                 </svg>
               )}
-
-              <span className="truncate flex-1">{title}</span>
+              <span>{visible ? "Public" : "Private"}</span>
             </h2>
-            <p className="text-sm text-black/80 font-medium w-[80%] truncate">
+            <p className="text-black font-medium w-[80%] truncate">
               {description}
             </p>
             <a

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, FormEvent } from "react";
 import autoAnimate from "@formkit/auto-animate";
 import { YoutubeFormDataType } from "@/app/lib/definitions";
 import YoutubeForm from "@/app/ui/message-form/youtube-form";
@@ -8,6 +8,7 @@ import YoutubeList from "@/app/ui/message-form/youtube-list";
 
 const SendAnonymousPage = () => {
   const parent = useRef<HTMLDivElement>(null);
+  const [message, setMessage] = useState("");
   const [youtubeVideos, setYoutubeVideos] = useState<YoutubeFormDataType[]>([]);
   const [openYTForm, setOpenYTForm] = useState(false);
 
@@ -27,30 +28,37 @@ const SendAnonymousPage = () => {
     parent.current && autoAnimate(parent.current);
   }, []);
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="my-10 container">
-      <section className="max-w-[600px] mx-auto overflow-hidden">
-        <header className="rounded-t-xl flex space-x-2 bg-white px-5 py-4">
-          <div className="w-10 h-10 rounded-full flex items-center justify-center bg-pink-700 text-white">
-            A
-          </div>
-          <div className="flex flex-col">
-            <h2 className="text-sm">@aungkoko</h2>
-            <p className="text-sm font-semibold">
-              Tell me what you feel anonymously!
-            </p>
-          </div>
-        </header>
-        <textarea
-          name="anonymous_message"
-          id="anonymous_message"
-          rows={8}
-          placeholder="Tell me what you feel..."
-          className="w-full rounded-b-xl outline-none px-5 py-4 bg-orange-300 text-lg font-medium placeholder:text-black/40 placeholder:font-medium"
-          required
-        ></textarea>
-
-        <div ref={parent} className="mt-5">
+      <div className="max-w-[600px] mx-auto overflow-hidden">
+        <form onSubmit={handleSubmit}>
+          <header className="rounded-t-xl flex space-x-2 bg-white px-5 py-4">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-pink-700 text-white">
+              A
+            </div>
+            <div className="flex flex-col">
+              <h2 className="text-sm">@aungkoko</h2>
+              <p className="text-sm font-semibold">
+                Tell me what you feel anonymously!
+              </p>
+            </div>
+          </header>
+          <textarea
+            name="anonymous_message"
+            id="anonymous_message"
+            rows={8}
+            placeholder="Tell me what you feel..."
+            className="w-full rounded-b-xl outline-none px-5 py-4 bg-orange-300 text-lg font-medium placeholder:text-black/40 placeholder:font-medium"
+            required
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          ></textarea>
+        </form>
+        <div ref={parent} className="my-5">
           {youtubeVideos.length > 0 && (
             <YoutubeList
               youtubeVideos={youtubeVideos}
@@ -69,6 +77,7 @@ const SendAnonymousPage = () => {
           {!openYTForm && youtubeVideos.length < 3 && (
             <>
               <button
+                type="button"
                 onClick={toggleYTForm}
                 className="w-full active:scale-95 duration-200 flex items-center justify-center space-x-2 py-4 text-orange-600 bg-white border border-orange-600 rounded-xl text-lg font-medium"
               >
@@ -84,16 +93,18 @@ const SendAnonymousPage = () => {
                 <span>Add Youtube Video</span>
               </button>
               <p className="text-sm text-center mt-1 text-white">
-                Express your feelings with youtube videos (
-                <span>{youtubeVideos.length}</span> / 3)
+                Express your feelings with youtube videos ({" "}
+                <span>{youtubeVideos.length}</span> / 3 )
               </p>
             </>
           )}
-          <button className="w-full active:scale-95 duration-200 mt-10 px-5 py-4 bg-black text-lg font-medium text-white rounded-xl">
-            Send!
-          </button>
+          {message && (
+            <button className="w-full active:scale-95 duration-200 mt-10 px-5 py-4 bg-black text-lg font-medium text-white rounded-xl">
+              Send!
+            </button>
+          )}
         </div>
-      </section>
+      </div>
     </div>
   );
 };
