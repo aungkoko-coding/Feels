@@ -4,7 +4,7 @@ import FeedListItem from "@/app/ui/feed/vertical-list-item";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-const FeedDetail = () => {
+const FeedDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const vid = searchParams.get("vid");
@@ -55,7 +55,7 @@ const FeedDetail = () => {
           </div>
         </div>
       </div>
-      <div className="flex-1 flex flex-col space-y-2 pt-10 max-w-lg:border-t border-orange-600 lg:pt-0">
+      <div className="flex-1 pt-10 lg:pt-0 border-t lg:border-t-transparent border-orange-600 flex flex-col space-y-2">
         {feed.map((item) => (
           <FeedListItem key={item.id} {...item} />
         ))}
@@ -64,4 +64,4 @@ const FeedDetail = () => {
   );
 };
 
-export default FeedDetail;
+export default FeedDetailPage;

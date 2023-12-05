@@ -98,3 +98,30 @@
     transform: rotate(360deg);
   }
 }
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #c5c3c3;
+  border-radius: 4px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #918e8e;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb:active {
+  background-color: #333;
+}
+
+/* For non webkit based browsers */
+.thin-scrollbar {
+  scrollbar-color: #c5c3c3 #fff;
+  scrollbar-width: thin;
+}

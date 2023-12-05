@@ -22,7 +22,7 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           <div className="main"></div>
           <Navbar />
-          <main className="relative z-10 container px-1 mt-10">{children}</main>
+          <main className="relative container px-1 mt-10">{children}</main>
           <Footer />
         </div>
       </body>
