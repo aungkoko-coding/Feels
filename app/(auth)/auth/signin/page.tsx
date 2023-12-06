@@ -7,8 +7,8 @@ import { useState } from "react";
 const SignInPage = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const searchParams = useSearchParams();
-  const callbackUrl =
-    searchParams.get("callbackUrl") || process.env.NEXTAUTH_URL;
+  const rootCallbackUrl = process.env.NEXT_PUBLIC_AUTH_URL;
+  const callbackUrl = searchParams.get("callbackUrl") || rootCallbackUrl;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -16,6 +16,7 @@ const SignInPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(callbackUrl, rootCallbackUrl);
     signIn("credentials", {
       username: formData.username,
       password: formData.password,
@@ -28,7 +29,9 @@ const SignInPage = () => {
     <section className="bg-white shadow-md px-10 py-8 max-w-[500px] mx-auto rounded-md">
       <h1 className="text-3xl font-extrabold">Sign in</h1>
       <p className="text-sm mt-1 text-black/90 font-medium">
-        Hey! Welcome back!
+        {callbackUrl === rootCallbackUrl
+          ? "Hey! Welcome back!"
+          : "You need to sign in to use our features!"}
       </p>
       <form onSubmit={handleSubmit} className="mt-7 space-y-4">
         <input
