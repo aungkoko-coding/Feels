@@ -23,10 +23,12 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         if (typeof credentials !== "undefined") {
+          // console.log({ credentials });
           const { data: res } = await authenticate(
             credentials.username,
             credentials.password
           );
+          // console.log({ res });
           if (typeof res !== "undefined") {
             // console.log({ res });
             return { ...res.user, apiToken: res.token };

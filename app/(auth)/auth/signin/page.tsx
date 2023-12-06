@@ -1,9 +1,14 @@
 "use client";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const SignInPage = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
+  const searchParams = useSearchParams();
+  const callbackUrl =
+    searchParams.get("callbackUrl") || process.env.NEXTAUTH_URL;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -11,6 +16,12 @@ const SignInPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    signIn("credentials", {
+      username: formData.username,
+      password: formData.password,
+      redirect: true,
+      callbackUrl,
+    });
   };
 
   return (
