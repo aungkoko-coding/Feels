@@ -2,8 +2,9 @@ import axios from "axios";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const authenticate = (username: string, password: string) => {
-  return axios.post("http://localhost:3001/auth/signin", {
+  return axios.post(`${apiUrl}/auth/signin`, {
     username,
     password,
   });
@@ -21,20 +22,12 @@ export const authOptions: NextAuthOptions = {
         username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials: any, req) {
+        // credentials value can be received from default sign in page or signIn function's second argument
         if (typeof credentials !== "undefined") {
-          // console.log({ credentials });
-          const { data: res } = await authenticate(
-            credentials.username,
-            credentials.password
-          );
-          // console.log({ res });
-          if (typeof res !== "undefined") {
-            // console.log({ res });
-            return { ...res.user, apiToken: res.token };
-          } else {
-            return null;
-          }
+          const data = JSON.parse(credentials.data); // see the shape of credentials in signin and signup page.
+
+          return { ...data.user, apiToken: data.token };
         } else {
           return null;
         }
@@ -60,3 +53,22 @@ export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
   secret: process.env.NEXTAUTH_SECRET,
 };
+
+// async authorize(credentials, req) {
+//   if (typeof credentials !== "undefined") {
+//     // console.log({ credentials });
+//     const { data: res } = await authenticate(
+//       credentials.username,
+//       credentials.password
+//     );
+//     // console.log({ res });
+//     if (typeof res !== "undefined") {
+//       // console.log({ res });
+//       return { ...res.user, apiToken: res.token };
+//     } else {
+//       return null;
+//     }
+//   } else {
+//     return null;
+//   }
+// }

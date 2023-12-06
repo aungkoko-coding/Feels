@@ -1,8 +1,17 @@
 "use client";
+import axios from "axios";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+const authenticate = (username: string, password: string) => {
+  return axios.post(`${apiUrl}/auth/signin`, {
+    username,
+    password,
+  });
+};
 
 const SignInPage = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -16,13 +25,15 @@ const SignInPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(callbackUrl, rootCallbackUrl);
-    signIn("credentials", {
-      username: formData.username,
-      password: formData.password,
-      redirect: true,
-      callbackUrl,
-    });
+    (async () => {
+      const { data } = await authenticate(formData.username, formData.password);
+      signIn("credentials", {
+        data: JSON.stringify(data),
+        redirect: true,
+        callbackUrl,
+      });
+    })();
+    // console.log(callbackUrl, rootCallbackUrl);
   };
 
   return (
@@ -55,7 +66,7 @@ const SignInPage = () => {
         </button>
       </form>
       <Link
-        href="/auth/signup"
+        href={`/auth/signup?callbackUrl=${callbackUrl}`}
         className="text-center mt-4 block text-sm hover:underline duration-200 text-blue-800"
       >
         Create account
