@@ -1,11 +1,14 @@
 "use client";
 import { signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
     <header className="z-20 backdrop-blur-sm sticky top-0">
       <nav className="container px-1 flex py-2 items-center ">
-        <img src="/assets/images/logo.png" alt="Logo" />
+        <Link href="/">
+          <img src="/assets/images/logo.png" alt="Logo" />
+        </Link>
         <div className="ml-auto space-x-2">
           <button
             onClick={() => signOut()}

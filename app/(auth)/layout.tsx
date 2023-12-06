@@ -22,7 +22,7 @@ export default function RootLayout({
               </Link>
             </nav>
           </header>
-          <main className="relative z-10 my-10">{children}</main>
+          <main className="relative z-10 my-10 container">{children}</main>
           <Footer />
         </div>
       </body>
