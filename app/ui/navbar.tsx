@@ -11,7 +11,9 @@ const Navbar = () => {
         </Link>
         <div className="ml-auto space-x-2">
           <button
-            onClick={() => signOut()}
+            onClick={() =>
+              signOut({ callbackUrl: process.env.NEXT_PUBLIC_AUTH_URL })
+            }
             className="rounded-full border border-black text-black px-5 py-2 duration-200 hover:bg-black hover:text-white"
           >
             Sign Up
