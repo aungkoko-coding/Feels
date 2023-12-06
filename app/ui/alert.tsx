@@ -42,4 +42,6 @@ const Alert = forwardRef<AlertMethods, AlertProps>(
   }
 );
 
+Alert.displayName = "Alert";
+
 export default Alert;
