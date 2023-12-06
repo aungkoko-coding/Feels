@@ -11,6 +11,9 @@ const authenticate = (username: string, password: string) => {
 
 // If we need to access authOptions from somewhere else rather than [...authOptions] route, it's better to separate module and export authOptions. Otherwise, it will mismatch with the route handler exports of NextAuth and build will fail.
 export const authOptions: NextAuthOptions = {
+  pages: {
+    signIn: "/auth/signin",
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
