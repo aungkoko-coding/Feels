@@ -13,3 +13,8 @@ export type YoutubeFormDataType = {
   public: boolean;
   timestamp: number; // this property is for temporary to use it when displaying list, doesn't store on server
 };
+
+export type CustomSessionType = {
+  data: any;
+  status: "loading" | "authenticated" | "unauthenticated";
+};
