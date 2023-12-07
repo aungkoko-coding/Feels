@@ -5,12 +5,16 @@ import autoAnimate from "@formkit/auto-animate";
 import { YoutubeFormDataType } from "@/app/lib/definitions";
 import YoutubeForm from "@/app/ui/message-form/youtube-form";
 import YoutubeList from "@/app/ui/message-form/youtube-list";
+import { axiosInstance } from "@/app/lib/axios-config";
+import { useParams } from "next/navigation";
 
 const SendAnonymousPage = () => {
+  const [isSending, setIsSending] = useState(false);
   const parent = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState("");
   const [youtubeVideos, setYoutubeVideos] = useState<YoutubeFormDataType[]>([]);
   const [openYTForm, setOpenYTForm] = useState(false);
+  const username = useParams()["username"];
 
   const closeYTForm = () => {
     setOpenYTForm(false);
@@ -30,18 +34,35 @@ const SendAnonymousPage = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    setIsSending(true);
+    (async () => {
+      try {
+        const res = await axiosInstance.post(`/messages/${username}`, {
+          content: message,
+          youtubeLinks: youtubeVideos.map((yt) => ({
+            ...yt,
+            url: yt.youtubeLink,
+          })),
+        });
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setIsSending(false);
+      }
+    })();
   };
 
   return (
     <div className="my-10 container">
       <div className="max-w-[600px] mx-auto overflow-hidden">
-        <form onSubmit={handleSubmit}>
+        <form id="sendForm" onSubmit={handleSubmit}>
           <header className="rounded-t-xl flex space-x-2 bg-white px-5 py-4">
-            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-pink-700 text-white">
-              A
+            <div className="w-10 h-10 uppercase rounded-full flex items-center justify-center bg-pink-700 text-white">
+              {username[0]}
             </div>
             <div className="flex flex-col">
-              <h2 className="text-sm">@aungkoko</h2>
+              <h2 className="text-sm">@{username}</h2>
               <p className="text-sm font-semibold">
                 Tell me what you feel anonymously!
               </p>
@@ -99,8 +120,24 @@ const SendAnonymousPage = () => {
             </>
           )}
           {message && (
-            <button className="w-full active:scale-95 duration-200 mt-10 px-5 py-4 bg-black text-lg font-medium text-white rounded-xl">
-              Send!
+            <button
+              form="sendForm"
+              className="w-full flex items-center justify-center text-center active:scale-95 duration-200 mt-10 px-5 py-4 bg-black text-lg font-medium text-white rounded-xl"
+            >
+              {isSending ? (
+                <svg
+                  className="rotate"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  viewBox="0 0 256 256"
+                >
+                  <path d="M140,32V64a12,12,0,0,1-24,0V32a12,12,0,0,1,24,0Zm33.25,62.75a12,12,0,0,0,8.49-3.52L204.37,68.6a12,12,0,0,0-17-17L164.77,74.26a12,12,0,0,0,8.48,20.49ZM224,116H192a12,12,0,0,0,0,24h32a12,12,0,0,0,0-24Zm-42.26,48.77a12,12,0,1,0-17,17l22.63,22.63a12,12,0,0,0,17-17ZM128,180a12,12,0,0,0-12,12v32a12,12,0,0,0,24,0V192A12,12,0,0,0,128,180ZM74.26,164.77,51.63,187.4a12,12,0,0,0,17,17l22.63-22.63a12,12,0,1,0-17-17ZM76,128a12,12,0,0,0-12-12H32a12,12,0,0,0,0,24H64A12,12,0,0,0,76,128ZM68.6,51.63a12,12,0,1,0-17,17L74.26,91.23a12,12,0,0,0,17-17Z"></path>
+                </svg>
+              ) : (
+                <span>Send!</span>
+              )}
             </button>
           )}
         </div>
