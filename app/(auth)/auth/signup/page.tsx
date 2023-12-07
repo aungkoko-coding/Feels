@@ -38,7 +38,7 @@ const SignUpPage = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value.trim(),
+      [e.target.name]: e.target.value.trim().toLowerCase(),
     }));
   };
 
