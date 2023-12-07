@@ -1,13 +1,13 @@
 "use client";
-import { passwordRegex, usernameRegex } from "@/app/lib/regexs";
-import Alert from "@/app/ui/alert";
 import axios, { AxiosError } from "axios";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { passwordRegex, usernameRegex } from "@/app/lib/regexs";
+import { apiUrl } from "@/app/lib/variables";
+import Alert from "@/app/ui/alert";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const authenticate = (username: string, password: string) => {
   return axios.post(`${apiUrl}/auth/signin`, {
     username,
@@ -47,7 +47,7 @@ const SignInPage = () => {
       setFormError({
         errorAt: "password",
         warnType: true,
-        message: "Password should contain at least 6 characters!",
+        message: "Password should contain at least 8 characters!",
       });
     } else {
       (async () => {
