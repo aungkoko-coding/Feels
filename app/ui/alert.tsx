@@ -5,6 +5,7 @@ type AlertProps = {
   show: boolean;
   warnType?: boolean;
   message: string;
+  fontSize?: string;
 };
 
 export type AlertMethods = {
@@ -12,7 +13,7 @@ export type AlertMethods = {
 };
 
 const Alert = forwardRef<AlertMethods, AlertProps>(
-  ({ message, show, warnType }, ref) => {
+  ({ message, show, warnType, fontSize }, ref) => {
     const parent = useRef<HTMLDivElement>(null);
     useImperativeHandle(ref, () => ({
       scrollIntoView: () => {
@@ -28,7 +29,9 @@ const Alert = forwardRef<AlertMethods, AlertProps>(
       <div role="alert" ref={parent}>
         {show && (
           <p
-            className={`px-5 py-4 text-lg rounded-xl font-medium border ${
+            className={`px-5 py-4 ${
+              fontSize || "text-lg"
+            } rounded-xl font-medium border ${
               warnType
                 ? "text-orange-600 bg-orange-50 border-yellow-500"
                 : "text-red-600 bg-red-50 border-red-500"

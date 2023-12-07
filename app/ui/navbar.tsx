@@ -11,6 +11,15 @@ const Navbar = () => {
   const loading = status === "loading";
   const authenticated = status === "authenticated";
 
+  // const searchParams = new URLSearchParams();
+  // searchParams.set(
+  //   "callbackUrl",
+  //   `${process.env.NEXT_PUBLIC_AUTH_URL}${pathname.slice(1)}`
+  // );
+  const signUpCallbackUrl = `/auth/signup?callbackUrl=${
+    process.env.NEXT_PUBLIC_AUTH_URL
+  }${pathname.slice(1)}`;
+
   return (
     <header className="z-20 bg-white shadow-sm sticky top-0">
       <nav className="container px-1 flex py-2 items-center ">
@@ -64,9 +73,7 @@ const Navbar = () => {
           {!(loading || authenticated) && (
             <div className="space-x-3">
               <Link
-                href={`/auth/signup?callbackUrl=${
-                  process.env.NEXT_PUBLIC_AUTH_URL
-                }${pathname.slice(1)}`}
+                href={signUpCallbackUrl}
                 className="rounded-full border border-black text-black px-5 py-2 duration-200 hover:bg-black hover:text-white"
               >
                 Sign Up
