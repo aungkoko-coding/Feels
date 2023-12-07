@@ -15,7 +15,7 @@ export default function Home() {
           YouTube links. Your feelings, your way.
         </p>
         <img src="/assets/images/hero.png" alt="Hero Image" className="mt-2" />
-        <div className="gradient" />
+
         <div className="mt-10 flex justify-center">
           <div className="space-x-5 flex">
             <p>

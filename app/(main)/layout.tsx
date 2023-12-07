@@ -27,7 +27,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="flex flex-col min-h-screen">
-          <div className="main"></div>
+          <div className="main">
+            <div className="gradient" />
+          </div>
           <ClientSessionProvider>
             <Navbar />
             <main className="relative container px-1 mt-10">{children}</main>

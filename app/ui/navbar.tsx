@@ -3,18 +3,29 @@ import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import useSessionData from "../lib/hooks/useSessionData";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const Navbar = () => {
   const pathname = usePathname();
   const { user, authenticated, loading } = useSessionData();
   const [errorLoadingAvatar, setErrorLoadingAvatar] = useState(false);
+  const headerRef = useRef<HTMLHeadElement>(null);
   const signUpCallbackUrl = `/auth/signup?callbackUrl=${
     process.env.NEXT_PUBLIC_AUTH_URL
   }${pathname.slice(1)}`;
 
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 20) {
+        headerRef.current?.classList.add("bg-white", "shadow-sm");
+      } else {
+        headerRef.current?.classList.remove("bg-white", "shadow-sm");
+      }
+    });
+  }, []);
+
   return (
-    <header className="z-20 bg-white shadow-sm sticky top-0">
+    <header ref={headerRef} className="z-20 sticky top-0 duration-200">
       <nav className="container px-1 flex py-2 items-center ">
         <Link href="/">
           <img src="/assets/images/logo.png" alt="Logo" />
