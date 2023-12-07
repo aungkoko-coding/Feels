@@ -158,7 +158,7 @@ const SignUpPage = () => {
         </button>
       </form>
       <Link
-        href="/auth/signin"
+        href={`/auth/signin?callbackUrl=${callbackUrl}`}
         className="text-center mt-4 block text-sm hover:underline duration-200 text-blue-800"
       >
         Already have an account?
