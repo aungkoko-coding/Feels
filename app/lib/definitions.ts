@@ -15,6 +15,17 @@ export type YoutubeFormDataType = {
 };
 
 export type CustomSessionType = {
-  data: any;
+  data: unknown;
   status: "loading" | "authenticated" | "unauthenticated";
+};
+
+export type SessionDataType = {
+  user?: null | {
+    apiToken: string;
+    createdAt: string;
+    updatedAt: string;
+    id: number;
+    username: string;
+    imgUrl: string | null;
+  };
 };

@@ -1,21 +1,14 @@
 "use client";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CustomSessionType } from "../lib/definitions";
+import useSessionData from "../lib/hooks/useSessionData";
+import { useState } from "react";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const sessionData = useSession();
-  const { data: session, status } = sessionData as CustomSessionType;
-  const loading = status === "loading";
-  const authenticated = status === "authenticated";
-
-  // const searchParams = new URLSearchParams();
-  // searchParams.set(
-  //   "callbackUrl",
-  //   `${process.env.NEXT_PUBLIC_AUTH_URL}${pathname.slice(1)}`
-  // );
+  const { user, authenticated, loading } = useSessionData();
+  const [errorLoadingAvatar, setErrorLoadingAvatar] = useState(false);
   const signUpCallbackUrl = `/auth/signup?callbackUrl=${
     process.env.NEXT_PUBLIC_AUTH_URL
   }${pathname.slice(1)}`;
@@ -27,7 +20,7 @@ const Navbar = () => {
           <img src="/assets/images/logo.png" alt="Logo" />
         </Link>
         <div className="ml-auto flex">
-          {authenticated && (
+          {user && (
             <>
               <ul className="flex items-center space-x-5 mr-4 text-orange-600">
                 <li>
@@ -65,7 +58,16 @@ const Navbar = () => {
                 className="rounded-full cursor-pointer w-10 h-10 p-[2px] border-2 border-orange-600  font-medium text-white"
               >
                 <div className="bg_orange_gradient w-full uppercase h-full rounded-full flex items-center justify-center">
-                  {session?.user?.username[0]}
+                  {user.imgUrl && !errorLoadingAvatar ? (
+                    <img
+                      src={user.imgUrl}
+                      alt={user.username}
+                      className="cover rounded-full"
+                      onError={() => setErrorLoadingAvatar(true)}
+                    />
+                  ) : (
+                    user.username[0]
+                  )}
                 </div>
               </div>
             </>
