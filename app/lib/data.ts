@@ -60,19 +60,20 @@ export const feed: FeedItemType[] = [
 export const messages: MessageType[] = [
   {
     id: 1,
-    content: "I love you 1",
+    content:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati commodi iure provident sunt ipsum quas ratione veniam similique, ipsam aspernatur rerum consequatur amet earum nostrum aliquid. Reiciendis voluptatibus quas quasi.",
     seen: false,
     createdAt: "2023-12-07T06:05:24.634Z",
   },
   {
     id: 2,
-    content: "I love you 2",
+    content: "ငါမင်းကိုသိပ်ချစ်တာဘဲကွာ မင်းက ငါ့ကိုဆို အဖက်မလုပ်ဘူး",
     seen: true,
     createdAt: "2023-12-07T06:05:24.634Z",
   },
   {
     id: 3,
-    content: "I love you 3",
+    content: "I have a crush on you",
     seen: true,
     createdAt: "2023-12-07T06:05:24.634Z",
   },
