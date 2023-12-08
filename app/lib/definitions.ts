@@ -32,6 +32,7 @@ export type SessionDataType = {
 
 export type YoutubeLinkType = {
   id: number;
+  vid: string;
   url: string;
   thumbnailUrl: string;
   title: string;
