@@ -29,3 +29,23 @@ export type SessionDataType = {
     imgUrl: string | null;
   };
 };
+
+export type YoutubeLinkType = {
+  id: number;
+  url: string;
+  thumbnailUrl: string;
+  title: string;
+  description?: string;
+  createdAt: string;
+  duration: string;
+
+  messageId: number;
+};
+
+export type MessageType = {
+  id: number;
+  content: string;
+  createdAt: string;
+  seen: boolean;
+  youtubeLinks?: YoutubeLinkType[] | null;
+};

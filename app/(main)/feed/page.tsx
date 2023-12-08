@@ -1,4 +1,4 @@
-import { feed } from "../../lib/feed-data";
+import { feed } from "../../lib/data";
 import FeedItem from "../../ui/feed/item";
 
 const FeedPage = () => {

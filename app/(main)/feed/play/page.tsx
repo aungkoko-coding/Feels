@@ -1,5 +1,5 @@
 "use client";
-import { feed } from "@/app/lib/feed-data";
+import { feed } from "@/app/lib/data";
 import FeedListItem from "@/app/ui/feed/vertical-list-item";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
