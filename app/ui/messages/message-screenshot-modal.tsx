@@ -34,7 +34,7 @@ const MessageScreenshotModal = ({
           open ? "translate-y-0" : "translate-y-1/2 pointer-events-none"
         }`}
       >
-        <div className="h-full overflow-auto thin-scrollbar p-10 ">
+        <div className="h-full overflow-auto thin-scrollbar">
           <div className="max-w-[700px] mx-auto">
             <div className="flex justify-center mb-1">
               <button
