@@ -70,7 +70,7 @@ const DeleteConfirmModal = ({
     >
       <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 p-5 max-w-[400px] w-full rounded-md bg-white">
         <h1 className="font-bold">
-          Are you sure you want to delete your account? The action can't be
+          Are you sure you want to delete your account? The action can&apos;t be
           undone.
         </h1>
         {errorMsg && (
