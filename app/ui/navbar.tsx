@@ -62,13 +62,11 @@ const Navbar = () => {
                 </li>
               </ul>
 
-              <div
-                onClick={() =>
-                  signOut({ callbackUrl: process.env.NEXT_PUBLIC_AUTH_URL })
-                }
-                className="rounded-full cursor-pointer w-10 h-10 p-[2px] border-2 border-orange-600  font-medium text-white"
-              >
-                <div className="bg_orange_gradient w-full uppercase h-full rounded-full flex items-center justify-center">
+              <div className="rounded-full cursor-pointer w-10 h-10 p-[2px] border-2 border-orange-600  font-medium text-white">
+                <Link
+                  href="/profile"
+                  className="bg_orange_gradient w-full uppercase h-full rounded-full flex items-center justify-center"
+                >
                   {user.imgUrl && !errorLoadingAvatar ? (
                     <img
                       src={user.imgUrl}
@@ -79,7 +77,7 @@ const Navbar = () => {
                   ) : (
                     user.username[0]
                   )}
-                </div>
+                </Link>
               </div>
             </>
           )}
