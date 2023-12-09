@@ -1,14 +1,5 @@
-import axios from "axios";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-const authenticate = (username: string, password: string) => {
-  return axios.post(`${apiUrl}/auth/signin`, {
-    username,
-    password,
-  });
-};
 
 // If we need to access authOptions from somewhere else rather than [...authOptions] route, it's better to separate module and export authOptions. Otherwise, it will mismatch with the route handler exports of NextAuth and build will fail.
 export const authOptions: NextAuthOptions = {
@@ -36,7 +27,11 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     // the returned value of this callback will be passed as the "token" property of session callback param object.
-    async jwt({ user, token }) {
+    async jwt({ user, token, trigger, session }) {
+      // this type guard is valid when we invoke update function of returned value of useSession hook, see update-avatar-modal
+      if (trigger === "update" && session?.imgUrl) {
+        (token.user as any).imgUrl = session.imgUrl;
+      }
       // the user value is the returned value of "authorize" callback function.
       // You must type guard because sometimes the "user" value is undefined. I noticed this callback runs twice.
       if (user) {

@@ -7,8 +7,10 @@ import useSessionData from "@/app/lib/hooks/useSessionData";
 import { domainName } from "@/app/lib/variables";
 import download from "downloadjs";
 import DeleteConfirmModal from "@/app/ui/profile/delete-confirm-modal";
+import UpdateAvatarModal from "@/app/ui/profile/update-avatar-modal";
 
 const ProfilePage = () => {
+  const [updateAvatarModalOpen, setUpdateAvatarModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [errorLoadingAvatar, setErrorLoadingAvatar] = useState(false);
@@ -37,12 +39,20 @@ const ProfilePage = () => {
       });
   };
 
-  const handleDeleteModalOpen = () => {
+  const openDeleteModal = () => {
     setDeleteModalOpen(true);
   };
 
-  const handleDeleteModalClose = () => {
+  const closeDeleteModal = () => {
     setDeleteModalOpen(false);
+  };
+
+  const openUpdateAvatarModal = () => {
+    setUpdateAvatarModalOpen(true);
+  };
+
+  const closeUpdateAvatarModal = () => {
+    setUpdateAvatarModalOpen(false);
   };
 
   return (
@@ -56,7 +66,7 @@ const ProfilePage = () => {
                   <img
                     src={user?.imgUrl}
                     alt={user?.username}
-                    className="cover rounded-full"
+                    className="object-cover w-full h-full rounded-full"
                     onError={() => setErrorLoadingAvatar(true)}
                   />
                 ) : (
@@ -68,7 +78,10 @@ const ProfilePage = () => {
               <div className="flex flex-col ml-2">
                 <h2 className="text-xl font-bold">@{user?.username}</h2>
                 <div className="flex space-x-2 mt-2 text-sm">
-                  <button className="px-3 py-2 rounded-md active:scale-95 duration-200 bg-black text-white">
+                  <button
+                    onClick={openUpdateAvatarModal}
+                    className="px-3 py-2 rounded-md active:scale-95 duration-200 bg-black text-white"
+                  >
                     Edit avatar
                   </button>
                   <button
@@ -125,7 +138,7 @@ const ProfilePage = () => {
               </div>
 
               <button
-                onClick={handleDeleteModalOpen}
+                onClick={openDeleteModal}
                 className="px-5 py-4 mt-24 rounded-md bg-red-500 w-full flex justify-center items-center space-x-1 text-white active:scale-95 duration-200"
               >
                 <svg
@@ -143,7 +156,11 @@ const ProfilePage = () => {
           </div>
           <DeleteConfirmModal
             open={deleteModalOpen}
-            onClose={handleDeleteModalClose}
+            onClose={closeDeleteModal}
+          />
+          <UpdateAvatarModal
+            open={updateAvatarModalOpen}
+            onClose={closeUpdateAvatarModal}
           />
         </>
       ) : (
