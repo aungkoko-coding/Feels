@@ -6,12 +6,14 @@ import { axiosGetData } from "@/app/lib/axios-config";
 import { MessageType } from "@/app/lib/definitions";
 import useSessionData from "@/app/lib/hooks/useSessionData";
 
+export const messagesQueryKey = ["messages"];
+
 const MessageNotification = () => {
   const { user } = useSessionData();
   const queryClient = useQueryClient();
 
   const { data: messages } = useQuery<MessageType[]>({
-    queryKey: ["messages"],
+    queryKey: messagesQueryKey,
     queryFn: async () => {
       const res = await axiosGetData("/messages", user?.apiToken);
       return res.data;
@@ -33,10 +35,10 @@ const MessageNotification = () => {
 
       // receiver
       socket.on(`message-${user.username}-${user.id}`, (message) => {
-        queryClient.setQueryData<MessageType[]>(["messages"], (prevData) => [
-          message,
-          ...(prevData || []),
-        ]);
+        queryClient.setQueryData<MessageType[]>(
+          messagesQueryKey,
+          (prevData) => [message, ...(prevData || [])]
+        );
       });
     }
 

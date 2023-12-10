@@ -1,7 +1,6 @@
 "use client";
 import { useRef, useEffect } from "react";
 import autoAnimate from "@formkit/auto-animate";
-import { messages } from "@/app/lib/data";
 import MessageItem from "@/app/ui/messages/message-item";
 import Lottie from "lottie-react";
 import noDataAnimation from "../../lib/animations/no-data-ani.json";
@@ -15,7 +14,12 @@ import { io } from "socket.io-client";
 
 const MessagesPage = () => {
   const { user } = useSessionData();
-  const { data, isPending, isError, error } = useQuery<MessageType[]>({
+  const {
+    data: messages,
+    isPending,
+    isError,
+    error,
+  } = useQuery<MessageType[]>({
     queryKey: ["messages"],
     queryFn: async () => {
       const res = await axiosInstance.get("/messages", {
@@ -58,6 +62,7 @@ const MessagesPage = () => {
         <img src="/assets/images/message.gif" alt="Message box" />
       </div>
       <div className="md:ml-[200px]">
+        {isPending && <LoadingMessages />}
         {messages && messages.length > 0 ? (
           <ul ref={parent} className="divide-y-2 bg-white shadow-sm">
             {messages.map((message) => (
@@ -65,7 +70,7 @@ const MessagesPage = () => {
             ))}
           </ul>
         ) : (
-          <DataNotFound />
+          <>{!isPending && <DataNotFound />}</>
         )}
       </div>
     </div>

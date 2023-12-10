@@ -1,3 +1,4 @@
+import decryptText from "@/app/lib/decrypt";
 import { MessageType } from "@/app/lib/definitions";
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
@@ -33,7 +34,7 @@ const MessageItem = ({
         </span>
         <div>
           <p className="flex items-center space-x-2 font-medium truncate">
-            <span>{seen ? content : "New message"}</span>
+            <span>{seen ? decryptText(content) : "New message"}</span>
           </p>
           <span className="text-[12px] mt-2 block text-gray-500">
             {formatDistanceToNow(new Date(createdAt), {

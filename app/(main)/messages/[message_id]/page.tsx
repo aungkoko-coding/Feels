@@ -1,19 +1,79 @@
 "use client";
 
-import { useState } from "react";
-import { messages } from "@/app/lib/data";
+import { useEffect, useMemo, useState } from "react";
 import MessageScreenshotModal from "@/app/ui/messages/message-screenshot-modal";
-import { notFound } from "next/navigation";
 import YoutubePlayerFormModal from "@/app/ui/messages/youtube-player-modal";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { MessageType } from "@/app/lib/definitions";
+import decryptText from "@/app/lib/decrypt";
+import { axiosPatchData } from "@/app/lib/axios-config";
+import useSessionData from "@/app/lib/hooks/useSessionData";
+import { messagesQueryKey } from "@/app/ui/navbar/message-notification";
+
+type MutationVariablesType = {
+  messageId: number;
+  apiToken: string;
+};
 
 const MessageDetailPage = ({ params }: { params: { message_id: string } }) => {
   const [replyMessage, setReplyMessage] = useState("");
   const [screenshotModalOpen, setScreenshotModalOpen] = useState(false);
   const [youtubeModalOpen, setYoutubeModalOpen] = useState(false);
-  const message = messages.find((message) => message.id === +params.message_id);
+
+  const { user } = useSessionData();
+  const queryClient = useQueryClient();
+
+  const { data: messages, isPending } = useQuery<MessageType[]>({
+    queryKey: messagesQueryKey,
+    enabled: false,
+  });
+
+  const message = useMemo(
+    () => messages?.find((message) => message.id === +params.message_id),
+    [messages]
+  );
+
+  const { mutate: setMessageAsSeen } = useMutation({
+    mutationFn({ messageId, apiToken }: MutationVariablesType) {
+      return axiosPatchData(`/messages/seen/${messageId}`, apiToken);
+    },
+    onMutate({ messageId }: MutationVariablesType) {
+      const prevMessages =
+        queryClient.getQueryData<MessageType[]>(messagesQueryKey);
+
+      queryClient.setQueryData<MessageType[]>(
+        messagesQueryKey,
+        (prevMessages) => {
+          return (
+            prevMessages?.map((message) => {
+              if (message.id === messageId) {
+                return { ...message, seen: true };
+              }
+              return message;
+            }) || []
+          );
+        }
+      );
+
+      return { prevMessages };
+    },
+    onError(_err, _new, context) {
+      queryClient.setQueryData(messagesQueryKey, context?.prevMessages);
+    },
+  });
+
+  useEffect(() => {
+    if (message && !message.seen && user) {
+      setMessageAsSeen({ messageId: message.id, apiToken: user.apiToken });
+    }
+  }, [message, user]);
+
+  if (isPending) {
+    return <h1>Loading...</h1>;
+  }
 
   if (!message) {
-    notFound();
+    return <h1>Not found!</h1>;
   }
 
   const { content, youtubeLinks } = message;
@@ -42,7 +102,7 @@ const MessageDetailPage = ({ params }: { params: { message_id: string } }) => {
           <div className="">
             <header className="rounded-t-xl flex space-x-2 bg_orange_gradient px-10 py-8">
               <h1 className="text-xl md:text-4xl title-font text-white font-extrabold  w-full">
-                {content}
+                {isPending ? "Loading..." : decryptText(content)}
               </h1>
             </header>
             <textarea
@@ -94,7 +154,7 @@ const MessageDetailPage = ({ params }: { params: { message_id: string } }) => {
 
       {message && (
         <MessageScreenshotModal
-          message={content}
+          message={decryptText(content)}
           replyMessage={replyMessage}
           open={screenshotModalOpen}
           onClose={closeScreenshotModal}

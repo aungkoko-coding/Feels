@@ -8,3 +8,10 @@ export const axiosGetData = (uri: string, apiToken?: string) => {
     headers: { Authorization: `Bearer ${apiToken}` },
   });
 };
+
+export const axiosPatchData = (uri: string, apiToken?: string) => {
+  console.log(uri, apiToken);
+  return axiosInstance.patch(uri, null, {
+    headers: { Authorization: `Bearer ${apiToken}` },
+  });
+};
