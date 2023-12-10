@@ -1,3 +1,4 @@
+import decryptText from "@/app/lib/decrypt";
 import { YoutubeLinkType } from "@/app/lib/definitions";
 
 const YoutubePlayerFormModal = ({
@@ -48,16 +49,20 @@ const YoutubePlayerFormModal = ({
                       onLoad={(e) =>
                         e.currentTarget.classList.remove("animate-pulse")
                       }
-                      src={`https://www.youtube.com/embed/${vid}?cc_load_policy=1&cc_lang_pref=en`}
+                      src={`https://www.youtube.com/embed/${
+                        decryptText(vid) || vid
+                      }?cc_load_policy=1&cc_lang_pref=en`}
                       title="YouTube video player"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                     />
                     <h1 className="text-lg sm:text-xl font-bold mt-3">
-                      {title}
+                      {decryptText(title) || title}
                     </h1>
-                    <p className="font-medium text-black/90">{description}</p>
+                    <p className="font-medium text-black/90">
+                      {decryptText(description || "") || description}
+                    </p>
                   </article>
                 </li>
               ))}
