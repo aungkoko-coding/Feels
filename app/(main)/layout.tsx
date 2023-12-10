@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
-import Navbar from "../ui/navbar";
+import Navbar from "../ui/navbar/navbar";
 import Footer from "../ui/footer";
 import ClientSessionProvider from "../lib/client-session-provider";
 import QueryProvider from "../lib/query-provider";
