@@ -3,17 +3,54 @@ import { useRef, useEffect } from "react";
 import autoAnimate from "@formkit/auto-animate";
 import { messages } from "@/app/lib/data";
 import MessageItem from "@/app/ui/messages/message-item";
-import { FidgetSpinner } from "react-loader-spinner";
 import Lottie from "lottie-react";
 import noDataAnimation from "../../lib/animations/no-data-ani.json";
 import loadingAnimation from "../../lib/animations/loading-ani.json";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { axiosInstance } from "@/app/lib/axios-config";
+import useSessionData from "@/app/lib/hooks/useSessionData";
+import decryptText from "@/app/lib/decrypt";
+import { MessageType } from "@/app/lib/definitions";
+import { io } from "socket.io-client";
 
 const MessagesPage = () => {
+  const { user } = useSessionData();
+  const { data, isPending, isError, error } = useQuery<MessageType[]>({
+    queryKey: ["messages"],
+    queryFn: async () => {
+      const res = await axiosInstance.get("/messages", {
+        headers: { Authorization: `Bearer ${user?.apiToken}` },
+      });
+      return res.data;
+    },
+    enabled: !!user?.id,
+  });
+
+  // console.log(error);
   const parent = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     parent.current && autoAnimate(parent.current);
   }, []);
+
+  const socketRef = useRef(io("ws://localhost:3001"));
+  useEffect(() => {
+    const socket = socketRef.current;
+    if (user) {
+      socket.on("connect", () => {
+        console.log("Connected to WebSocket");
+      });
+
+      // receiver
+      socket.on(`message-${user.username}-${user.id}`, (message) => {
+        console.log("Received message:", message);
+      });
+    }
+
+    return () => {
+      socket.off();
+    };
+  }, [user]);
 
   return (
     <div className="container relative mb-10">
