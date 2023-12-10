@@ -4,6 +4,7 @@ import "../globals.css";
 import Navbar from "../ui/navbar";
 import Footer from "../ui/footer";
 import ClientSessionProvider from "../lib/client-session-provider";
+import QueryProvider from "../lib/query-provider";
 // import { getServerSession } from "next-auth";
 // import { authOptions } from "../lib/authOptions";
 
@@ -31,9 +32,11 @@ export default function RootLayout({
             <div className="gradient" />
           </div>
           <ClientSessionProvider>
-            <Navbar />
-            <main className="relative container px-1 mt-10">{children}</main>
-            <Footer />
+            <QueryProvider>
+              <Navbar />
+              <main className="relative container px-1 mt-10">{children}</main>
+              <Footer />
+            </QueryProvider>
           </ClientSessionProvider>
         </div>
       </body>
