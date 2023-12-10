@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import { axiosGetData } from "@/app/lib/axios-config";
 import { MessageType } from "@/app/lib/definitions";
 import useSessionData from "@/app/lib/hooks/useSessionData";
+import { toast } from "react-toastify";
 
 export const messagesQueryKey = ["messages"];
 
@@ -12,7 +13,11 @@ const MessageNotification = () => {
   const { user } = useSessionData();
   const queryClient = useQueryClient();
 
-  const { data: messages } = useQuery<MessageType[]>({
+  const {
+    data: messages,
+    isError,
+    error,
+  } = useQuery<MessageType[]>({
     queryKey: messagesQueryKey,
     queryFn: async () => {
       const res = await axiosGetData("/messages", user?.apiToken);
@@ -46,6 +51,15 @@ const MessageNotification = () => {
       socket.off();
     };
   }, [user]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error("Failed to load messages", {
+        autoClose: 3000,
+        position: "top-right",
+      });
+    }
+  }, [isError, error]);
 
   return (
     <Link href="/messages" className="relative">

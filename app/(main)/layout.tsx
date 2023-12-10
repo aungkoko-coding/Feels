@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
+import "react-toastify/ReactToastify.min.css";
 import Navbar from "../ui/navbar/navbar";
 import Footer from "../ui/footer";
 import ClientSessionProvider from "../lib/client-session-provider";
 import QueryProvider from "../lib/query-provider";
+import { ToastContainer } from "react-toastify";
 // import { getServerSession } from "next-auth";
 // import { authOptions } from "../lib/authOptions";
 
@@ -31,6 +33,7 @@ export default function RootLayout({
           <div className="main">
             <div className="gradient" />
           </div>
+          <ToastContainer />
           <ClientSessionProvider>
             <QueryProvider>
               <Navbar />
