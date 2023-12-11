@@ -12,12 +12,13 @@ import Link from "next/link";
 import { UserType } from "./page";
 
 const MessageBox = ({ user }: { user: UserType }) => {
+  const [errorLoadingAvatar, setErrorLoadingAvatar] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [message, setMessage] = useState("");
   const [youtubeVideos, setYoutubeVideos] = useState<YoutubeFormDataType[]>([]);
   const [openYTForm, setOpenYTForm] = useState(false);
-  const { username } = user;
+  const { username, imgUrl } = user;
 
   const rootParent = useRef<HTMLDivElement>(null);
   const parent = useRef<HTMLDivElement>(null);
@@ -106,7 +107,16 @@ const MessageBox = ({ user }: { user: UserType }) => {
             <form id="sendForm" onSubmit={handleSubmit}>
               <header className="rounded-t-xl flex space-x-2 bg-white px-5 py-4">
                 <div className="w-10 h-10 uppercase rounded-full flex items-center justify-center bg-pink-700 text-white">
-                  {username[0]}
+                  {imgUrl && !errorLoadingAvatar ? (
+                    <img
+                      src={imgUrl}
+                      alt={username}
+                      className="cover rounded-full"
+                      onError={() => setErrorLoadingAvatar(true)}
+                    />
+                  ) : (
+                    username[0]
+                  )}
                 </div>
                 <div className="flex flex-col">
                   <h2 className="text-sm">@{username}</h2>

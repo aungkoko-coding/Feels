@@ -44,7 +44,7 @@ const SendAnonymousPage = async ({
 }) => {
   const { username } = params;
   const res = await fetch(`${apiUrl}/users/${username}`, {
-    next: { tags: ["user", username] },
+    next: { tags: [`user/${username}`] },
   });
   if (!res.ok) {
     notFound();

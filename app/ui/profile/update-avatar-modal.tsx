@@ -1,6 +1,6 @@
 import { axiosInstance } from "@/app/lib/axios-config";
 import useSessionData from "@/app/lib/hooks/useSessionData";
-import { AxiosError, CanceledError } from "axios";
+import axios, { AxiosError, CanceledError } from "axios";
 import { useRef, useState } from "react";
 
 const UpdateAvatarModal = ({
@@ -40,6 +40,7 @@ const UpdateAvatarModal = ({
               },
             }
           );
+          await axios.put(`/api/users/${user?.username}/revalidate`);
           setAvatarUrl("");
           session.update({ imgUrl: avatarUrl });
           onClose();
