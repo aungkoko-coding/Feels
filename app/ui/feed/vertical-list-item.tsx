@@ -2,15 +2,18 @@ import { FeedItemType } from "@/app/lib/definitions";
 import Link from "next/link";
 
 const FeedListItem = ({
+  id,
   title,
   description,
-  url,
   thumbnailUrl,
   duration,
 }: FeedItemType) => {
   return (
     <article className="flex">
-      <Link href="#" className="relative overflow-hidden group rounded-md">
+      <Link
+        href={`/feed/play?vid=${id}`}
+        className="relative overflow-hidden group rounded-md"
+      >
         <img
           src={thumbnailUrl}
           alt={title}

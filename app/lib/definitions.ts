@@ -5,6 +5,7 @@ export type FeedItemType = {
   thumbnailUrl: string;
   duration: string;
   url: string;
+  vid: string;
 };
 
 export type YoutubeFormDataType = {
