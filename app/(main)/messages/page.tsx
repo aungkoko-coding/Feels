@@ -105,7 +105,7 @@ function DataNotFound() {
         animationData={noDataAnimation}
         style={{ width: 300, height: 300 }}
       />
-      <p>You haven't received any messages yet!</p>
+      <p>You haven&apos;t received any messages yet!</p>
     </div>
   );
 }

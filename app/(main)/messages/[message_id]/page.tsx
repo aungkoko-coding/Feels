@@ -19,6 +19,7 @@ const MessageDetailPage = ({ params }: { params: { message_id: string } }) => {
   const [replyMessage, setReplyMessage] = useState("");
   const [screenshotModalOpen, setScreenshotModalOpen] = useState(false);
   const [youtubeModalOpen, setYoutubeModalOpen] = useState(false);
+  const { message_id } = params;
 
   const { user } = useSessionData();
   const queryClient = useQueryClient();
@@ -29,8 +30,8 @@ const MessageDetailPage = ({ params }: { params: { message_id: string } }) => {
   });
 
   const message = useMemo(
-    () => messages?.find((message) => message.id === +params.message_id),
-    [messages]
+    () => messages?.find((message) => message.id === +message_id),
+    [messages, message_id]
   );
 
   const { mutate: setMessageAsSeen } = useMutation({
