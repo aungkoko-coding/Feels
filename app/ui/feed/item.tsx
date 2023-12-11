@@ -12,7 +12,7 @@ const FeedItem = ({
     <article className="flex flex-col">
       <Link
         href={`/feed/play?vid=${id}`}
-        className="relative overflow-hidden group rounded-md"
+        className="relative overflow-hidden group rounded-md bg-gray-500"
       >
         <img
           src={thumbnailUrl}

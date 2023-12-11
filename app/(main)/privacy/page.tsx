@@ -6,8 +6,9 @@ const PrivacyPage = () => {
         We Respect Your Privacy
       </h1>
       <p className="desc text-center">
-        Please freely share your emotions as we store your messages in secure
-        way. Your privacy is our priority.
+        Please feel free to share your emotions as we store your messages in
+        secure way. Additionally, we do not collect sender information for
+        anonymous messages. Your privacy is our priority.
       </p>
     </section>
   );

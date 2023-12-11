@@ -34,7 +34,7 @@ const FeedPage = () => {
       <h1 className="title-font text-4xl font-extrabold sm:text-5xl orange_gradient py-2 text-center">
         What others feel?
       </h1>
-      <p className="text-center">Here is the list of last 30 videos</p>
+      <p className="text-center">Here is a list of the latest 30 videos.</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-3 gap-y-5 my-10">
         {isPending ? (
           <>
