@@ -57,12 +57,12 @@ const SendAnonymousPage = () => {
         setErrorMessage("");
         setStatus("sent");
       } catch (err) {
+        setStatus("idle");
         if (err instanceof AxiosError) {
           setErrorMessage(err.response?.data.message || err.message);
           return;
         }
         setErrorMessage((err as Error).message);
-        setStatus("idle");
       }
     })();
   };
