@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useRef, useEffect, MouseEventHandler } from "react";
+import { useCallback, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Modal({ children }: { children: React.ReactNode }) {
@@ -7,8 +7,9 @@ export default function Modal({ children }: { children: React.ReactNode }) {
   const wrapper = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  const onDismiss = useCallback(() => {
-    router.back();
+  const onDismiss: () => void = useCallback(() => {
+    // we usually use router.back(), but it doesn't work. it won't close the modal when we have clicked other links on modal. We handle such situation in parent component "PlayModal"
+    router.push("/feed");
   }, [router]);
 
   const onKeyDown = useCallback(
