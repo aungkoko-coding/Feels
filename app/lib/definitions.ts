@@ -39,6 +39,7 @@ export type YoutubeLinkType = {
   description?: string;
   createdAt: string;
   duration: string;
+  public: boolean;
 
   messageId: number;
 };

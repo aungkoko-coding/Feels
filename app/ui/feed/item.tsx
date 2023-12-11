@@ -5,7 +5,6 @@ const FeedItem = ({
   id,
   title,
   description,
-  url,
   thumbnailUrl,
   duration,
 }: FeedItemType) => {

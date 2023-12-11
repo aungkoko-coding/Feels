@@ -40,32 +40,36 @@ const YoutubePlayerFormModal = ({
               video(s)
             </h1>
             <ul className="flex flex-col space-y-16 mb-10">
-              {youtubeLinks.map(({ id, vid, title, description }) => (
-                <li key={id}>
-                  <article>
-                    <iframe
-                      className="max-h-[500px] w-full aspect-video rounded-md bg-slate-300 animate-pulse"
-                      loading="lazy"
-                      onLoad={(e) =>
-                        e.currentTarget.classList.remove("animate-pulse")
-                      }
-                      src={`https://www.youtube.com/embed/${
-                        decryptText(vid) || vid
-                      }?cc_load_policy=1&cc_lang_pref=en`}
-                      title="YouTube video player"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                    />
-                    <h1 className="text-lg sm:text-xl font-bold mt-3">
-                      {decryptText(title) || title}
-                    </h1>
-                    <p className="font-medium text-black/90">
-                      {decryptText(description || "") || description}
-                    </p>
-                  </article>
-                </li>
-              ))}
+              {youtubeLinks.map(
+                ({ id, vid, title, description, public: isPublic }) => (
+                  <li key={id}>
+                    <article>
+                      <iframe
+                        className="max-h-[500px] w-full aspect-video rounded-md bg-slate-300 animate-pulse"
+                        loading="lazy"
+                        onLoad={(e) =>
+                          e.currentTarget.classList.remove("animate-pulse")
+                        }
+                        src={`https://www.youtube.com/embed/${
+                          isPublic ? vid : decryptText(vid)
+                        }?cc_load_policy=1&cc_lang_pref=en`}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                      />
+                      <h1 className="text-lg sm:text-xl font-bold mt-3">
+                        {isPublic ? title : decryptText(title)}
+                      </h1>
+                      <p className="font-medium text-black/90">
+                        {isPublic
+                          ? description
+                          : decryptText(description || "")}
+                      </p>
+                    </article>
+                  </li>
+                )
+              )}
             </ul>
           </div>
         </div>
