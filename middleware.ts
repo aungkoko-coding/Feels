@@ -4,7 +4,12 @@ import { withAuth } from "next-auth/middleware";
 export default withAuth(function middleware(req) {}, {
   callbacks: {
     authorized: ({ req, token }) => {
-      if (req.nextUrl.pathname.startsWith("/feed") && token === null) {
+      const pathname = req.nextUrl.pathname;
+      if (
+        pathname.startsWith("/feed") ||
+        pathname.startsWith("/messages") ||
+        (pathname.startsWith("/profile") && token === null)
+      ) {
         return false;
       }
       return true;
