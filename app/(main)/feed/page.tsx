@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import FeedItemSkeleton from "@/app/ui/feed/item-skeleton";
 
-export const staleTimeDuration = 1000 * 60 * 10;
+const staleTimeDuration = 1000 * 60 * 10;
 
 const FeedPage = () => {
   const {

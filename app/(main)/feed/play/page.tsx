@@ -5,9 +5,10 @@ import FeedListItem from "@/app/ui/feed/vertical-list-item";
 import FeedListItemSkeleton from "@/app/ui/feed/vertical-list-item-skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { staleTimeDuration } from "../page";
 import { useEffect, useRef } from "react";
 import autoAnimate from "@formkit/auto-animate";
+
+const staleTimeDuration = 1000 * 60 * 10;
 
 const FeedDetailPage: React.FC = () => {
   const parent = useRef<HTMLUListElement>(null);
