@@ -30,7 +30,7 @@ const MessageNotification = () => {
     return messages?.filter((message) => !message.seen).length || 0;
   }, [messages]);
 
-  const socketRef = useRef(io(`ws://${process.env.NEXT_PUBLIC_SOCKET_URL}`));
+  const socketRef = useRef(io(process.env.NEXT_PUBLIC_SOCKET_URL!));
   useEffect(() => {
     const socket = socketRef.current;
     if (user) {
