@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import autoAnimate from "@formkit/auto-animate";
+import { toast } from "react-toastify";
 
 const staleTimeDuration = 1000 * 60 * 10;
 
@@ -15,7 +16,11 @@ const FeedDetailPage: React.FC = () => {
   const searchParams = useSearchParams();
   const vid = searchParams.get("vid");
 
-  const { data: video, isPending } = useQuery<FeedItemType>({
+  const {
+    data: video,
+    isPending,
+    isError: isErrorLoadingVideo,
+  } = useQuery<FeedItemType>({
     queryKey: ["feed", vid],
     async queryFn() {
       const res = await axiosInstance.get(`/feed/${vid}`);
@@ -28,6 +33,7 @@ const FeedDetailPage: React.FC = () => {
     data: latest30Videos,
     isPending: isPendingLatestVideos,
     isFetching,
+    isError: isErrorLoadingListOfVideos,
     refetch,
   } = useQuery<FeedItemType[]>({
     queryKey: ["feed"],
@@ -46,6 +52,24 @@ const FeedDetailPage: React.FC = () => {
   useEffect(() => {
     parent.current && autoAnimate(parent.current);
   }, []);
+
+  useEffect(() => {
+    if (isErrorLoadingVideo) {
+      toast.error("Failed to load video.", {
+        autoClose: 3000,
+        position: "top-right",
+      });
+    }
+  }, [isErrorLoadingVideo]);
+
+  useEffect(() => {
+    if (isErrorLoadingListOfVideos) {
+      toast.error("Failed to load list of videos.", {
+        autoClose: 3000,
+        position: "top-right",
+      });
+    }
+  }, [isErrorLoadingListOfVideos]);
 
   return (
     <section className="flex flex-col lg:flex-row gap-5 mb-10">

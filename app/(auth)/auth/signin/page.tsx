@@ -65,7 +65,9 @@ const SignInPage = () => {
         } catch (err) {
           setIsAuthenticating(false);
           if (err instanceof AxiosError) {
-            setFormError({ message: err.response?.data.message });
+            setFormError({
+              message: err.response?.data.message || err.message,
+            });
             return;
           }
           setFormError({ message: (err as Error)?.message });
