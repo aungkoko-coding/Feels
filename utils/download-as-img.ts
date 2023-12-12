@@ -10,7 +10,7 @@ export default function downloadAsImage(
   const element = document.getElementById(elementId);
   if (element) {
     htmlToImage
-      .toJpeg(element, { quality: 1 })
+      .toPng(element, { quality: 1 })
       .then((dataUrl) => download(dataUrl, `${fileName}.${format}`));
   }
 }
