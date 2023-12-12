@@ -16,7 +16,7 @@ export default function Home() {
         </p>
         <img src="/assets/images/hero.png" alt="Hero Image" className="mt-2" />
 
-        <div className="mt-10 flex justify-center">
+        {/* <div className="mt-10 flex justify-center">
           <div className="space-x-5 flex">
             <p>
               Total Users: <span className="font-bold">5</span>
@@ -25,7 +25,7 @@ export default function Home() {
               Total Messages: <span className="font-bold">10</span>
             </p>
           </div>
-        </div>
+        </div> */}
       </section>
     </>
   );
