@@ -78,6 +78,8 @@ const SignUpPage = () => {
             formData.password,
             formData.imgUrl
           );
+          // users might just delete their account and create again with the same username.
+          await axios.put(`/api/users/${formData.username}/revalidate`);
           signIn("credentials", {
             data: JSON.stringify(data),
             redirect: true,

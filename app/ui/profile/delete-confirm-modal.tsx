@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/app/lib/axios-config";
 import useSessionData from "@/app/lib/hooks/useSessionData";
 import { domainName } from "@/app/lib/variables";
-import { AxiosError, CanceledError } from "axios";
+import axios, { AxiosError, CanceledError } from "axios";
 import { signOut } from "next-auth/react";
 import { useRef, useState } from "react";
 
@@ -43,6 +43,7 @@ const DeleteConfirmModal = ({
               Authorization: `Bearer ${user?.apiToken}`,
             },
           });
+          await axios.put(`/api/users/${user?.username}/revalidate`);
           onClose();
           signOut({ callbackUrl: domainName });
         } catch (err) {
