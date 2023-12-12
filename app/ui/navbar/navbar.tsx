@@ -1,10 +1,12 @@
 "use client";
-import { signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import useSessionData from "../../lib/hooks/useSessionData";
 import { useState, useEffect, useRef } from "react";
 import MessageNotification from "./message-notification";
+import authLoadingAni from "../../lib/animations/auth-loading-ani.json";
+import Lottie from "lottie-react";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -31,7 +33,15 @@ const Navbar = () => {
         <Link href="/">
           <img src="/assets/images/logo.png" alt="Logo" />
         </Link>
-        <div className="ml-auto flex">
+        <div className="ml-auto flex relative">
+          {loading && (
+            <span className="absolute right-0 top-1/2 -translate-y-1/2">
+              <Lottie
+                animationData={authLoadingAni}
+                style={{ width: 100, height: 100 }}
+              />
+            </span>
+          )}
           {user && (
             <>
               <ul className="flex items-center space-x-5 mr-4 text-orange-600">
