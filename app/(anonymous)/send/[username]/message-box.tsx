@@ -121,7 +121,7 @@ const MessageBox = ({ user }: { user: UserType }) => {
                 <div className="flex flex-col">
                   <h2 className="text-sm">@{username}</h2>
                   <p className="text-sm font-semibold">
-                    Tell me what you feel anonymously!
+                    Share your thoughts and emotions anonymously!
                   </p>
                 </div>
               </header>
@@ -129,7 +129,7 @@ const MessageBox = ({ user }: { user: UserType }) => {
                 name="anonymous_message"
                 id="anonymous_message"
                 rows={8}
-                placeholder="Tell me what you feel..."
+                placeholder="Share your thoughts and emotions..."
                 className="w-full rounded-b-xl outline-none px-5 py-4 bg-orange-300 text-lg font-medium placeholder:text-black/40 placeholder:font-medium"
                 required
                 value={message}

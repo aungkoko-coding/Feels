@@ -16,7 +16,7 @@ const UsageGuidePage = () => {
               You will see two options to share your link. Choose any option,
               share it on any social media platform, and wait for incoming
               anonymous messages. Don&apos;t forget to put caption like
-              &quot;Tell me what you all feel&quot;.
+              &quot;Share your thoughts and emotions anonymously!&quot;.
             </>
           }
         />
