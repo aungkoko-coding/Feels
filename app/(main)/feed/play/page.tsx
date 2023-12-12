@@ -5,6 +5,7 @@ import FeedListItem from "@/app/ui/feed/vertical-list-item";
 import FeedListItemSkeleton from "@/app/ui/feed/vertical-list-item-skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
+import { staleTimeDuration } from "../page";
 
 const FeedDetailPage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -20,22 +21,22 @@ const FeedDetailPage: React.FC = () => {
   });
 
   const {
-    data: latestTenVideos,
+    data: latest30Videos,
     isPending: isPendingLatestVideos,
     isFetching,
     refetch,
   } = useQuery<FeedItemType[]>({
-    queryKey: ["last-10-feed-videos"],
+    queryKey: ["feed"],
     async queryFn() {
       const res = await axiosInstance.get(`/feed`, {
         data: {
-          take: 10,
+          take: 30,
         },
       });
 
       return res.data;
     },
-    staleTime: 60 * 1000, // 1 min
+    staleTime: staleTimeDuration,
   });
 
   return (
@@ -102,7 +103,7 @@ const FeedDetailPage: React.FC = () => {
           </button>
         </div>
       </div>
-      <div
+      <ul
         className={`flex-1 pt-10 lg:pt-0 border-t lg:border-t-transparent border-orange-600 flex flex-col space-y-2 ${
           isFetching && !isPendingLatestVideos
             ? "opacity-70 pointer-events-none"
@@ -112,17 +113,26 @@ const FeedDetailPage: React.FC = () => {
         {isPendingLatestVideos ? (
           <>
             {Array.from({ length: 7 }, (_, i) => (
-              <FeedListItemSkeleton key={i} />
+              <li key={i}>
+                <FeedListItemSkeleton />
+              </li>
             ))}
           </>
         ) : (
           <>
-            {latestTenVideos?.map((item) => (
-              <FeedListItem key={item.id} {...item} />
+            {latest30Videos?.map((item) => (
+              <li
+                key={item.id}
+                className={`${
+                  parseInt(vid!) === item.id ? "text-orange-600" : ""
+                }`}
+              >
+                <FeedListItem {...item} />
+              </li>
             ))}
           </>
         )}
-      </div>
+      </ul>
     </section>
   );
 };
