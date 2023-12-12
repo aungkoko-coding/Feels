@@ -6,9 +6,10 @@ export default withAuth(function middleware(req) {}, {
     authorized: ({ req, token }) => {
       const pathname = req.nextUrl.pathname;
       if (
-        pathname.startsWith("/feed") ||
-        pathname.startsWith("/messages") ||
-        (pathname.startsWith("/profile") && token === null)
+        (pathname.startsWith("/feed") ||
+          pathname.startsWith("/messages") ||
+          pathname.startsWith("/profile")) &&
+        token === null
       ) {
         return false;
       }
