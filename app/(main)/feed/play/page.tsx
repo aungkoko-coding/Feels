@@ -6,8 +6,11 @@ import FeedListItemSkeleton from "@/app/ui/feed/vertical-list-item-skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { staleTimeDuration } from "../page";
+import { useEffect, useRef } from "react";
+import autoAnimate from "@formkit/auto-animate";
 
 const FeedDetailPage: React.FC = () => {
+  const parent = useRef<HTMLUListElement>(null);
   const searchParams = useSearchParams();
   const vid = searchParams.get("vid");
 
@@ -38,6 +41,10 @@ const FeedDetailPage: React.FC = () => {
     },
     staleTime: staleTimeDuration,
   });
+
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current);
+  }, []);
 
   return (
     <section className="flex flex-col lg:flex-row gap-5 mb-10">
@@ -104,6 +111,7 @@ const FeedDetailPage: React.FC = () => {
         </div>
       </div>
       <ul
+        ref={parent}
         className={`flex-1 pt-10 lg:pt-0 border-t lg:border-t-transparent border-orange-600 flex flex-col space-y-2 ${
           isFetching && !isPendingLatestVideos
             ? "opacity-70 pointer-events-none"
