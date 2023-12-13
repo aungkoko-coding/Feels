@@ -11,6 +11,7 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.1",
     "@tanstack/react-query": "^5.12.2",
+    "ably": "^1.2.48",
     "aos": "^2.3.4",
     "axios": "^1.6.2",
     "client-only": "^0.0.1",

@@ -1,16 +1,20 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-import { useRef, useEffect, useMemo } from "react";
-import { io } from "socket.io-client";
+import { useEffect, useMemo } from "react";
+import { toast } from "react-toastify";
+import { useChannel } from "ably/react";
+// import { io } from "socket.io-client";
 import { axiosGetData } from "@/app/lib/axios-config";
 import { MessageType } from "@/app/lib/definitions";
 import useSessionData from "@/app/lib/hooks/useSessionData";
-import { toast } from "react-toastify";
 
 export const messagesQueryKey = ["messages"];
+// const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL!);
+// const socket = new WebSocket(process.env.NEXT_PUBLIC_SOCKET_URL!);
 
 const MessageNotification = () => {
   const { user } = useSessionData();
+  const { channel } = useChannel("ably-notification");
   const queryClient = useQueryClient();
 
   const {
@@ -30,27 +34,42 @@ const MessageNotification = () => {
     return messages?.filter((message) => !message.seen).length || 0;
   }, [messages]);
 
-  const socketRef = useRef(io(process.env.NEXT_PUBLIC_SOCKET_URL!));
   useEffect(() => {
-    const socket = socketRef.current;
     if (user) {
-      socket.on("connect", () => {
-        console.log("Connected to WebSocket");
-      });
-
-      // receiver
-      socket.on(`message-${user.username}-${user.id}`, (message) => {
+      channel.subscribe(`message-${user.username}-${user.id}`, (message) => {
+        // console.log(message);
         queryClient.setQueryData<MessageType[]>(
           messagesQueryKey,
-          (prevData) => [message, ...(prevData || [])]
+          (prevData: any) => {
+            return [message.data, ...(prevData || [])];
+          }
         );
       });
     }
 
     return () => {
-      socket.off();
+      channel.unsubscribe();
     };
   }, [user]);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL!);
+  //     socket.on("connect", () => {
+  //       console.log("Connected to WebSocket");
+  //     });
+  //     // receiver
+  //     socket.on(`message-${user.username}-${user.id}`, (message) => {
+  //       queryClient.setQueryData<MessageType[]>(
+  //         messagesQueryKey,
+  //         (prevData) => [message, ...(prevData || [])]
+  //       );
+  //     });
+  //     return () => {
+  //       socket.off();
+  //     };
+  //   }
+  // }, [user]);
 
   useEffect(() => {
     if (isError) {
