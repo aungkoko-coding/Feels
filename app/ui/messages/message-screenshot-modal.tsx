@@ -53,7 +53,7 @@ const MessageScreenshotModal = ({
               </button>
             </div>
             <article id="message_to_print" className="p-10 bg-white">
-              <header className="rounded-t-xl flex space-x-2 bg_orange_gradient px-10 py-8">
+              <header className="rounded-t-xl flex space-x-2 bg-orange-600 px-10 py-8">
                 <h1 className="text-xl md:text-4xl title-font text-white font-extrabold w-full">
                   {message}
                 </h1>

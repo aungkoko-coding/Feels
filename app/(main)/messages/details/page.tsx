@@ -9,17 +9,22 @@ import decryptText from "@/app/lib/decrypt";
 import { axiosPatchData } from "@/app/lib/axios-config";
 import useSessionData from "@/app/lib/hooks/useSessionData";
 import { messagesQueryKey } from "@/app/ui/navbar/message-notification";
+import { useSearchParams } from "next/navigation";
+import Lottie from "lottie-react";
+import amongUsAnimation from "../../../lib/animations/among-us-ani.json";
+import sadFaceAnimation from "../../../lib/animations/sad-face-ani.json";
 
 type MutationVariablesType = {
   messageId: number;
   apiToken: string;
 };
 
-const MessageDetailPage = ({ params }: { params: { message_id: string } }) => {
+const MessageDetailPage = () => {
+  const searchParams = useSearchParams();
   const [replyMessage, setReplyMessage] = useState("");
   const [screenshotModalOpen, setScreenshotModalOpen] = useState(false);
   const [youtubeModalOpen, setYoutubeModalOpen] = useState(false);
-  const { message_id } = params;
+  const messageId = searchParams.get("messageId")!;
 
   const { user } = useSessionData();
   const queryClient = useQueryClient();
@@ -30,8 +35,8 @@ const MessageDetailPage = ({ params }: { params: { message_id: string } }) => {
   });
 
   const message = useMemo(
-    () => messages?.find((message) => message.id === +message_id),
-    [messages, message_id]
+    () => messages?.find((message) => message.id === +messageId),
+    [messages, messageId]
   );
 
   const { mutate: setMessageAsSeen } = useMutation({
@@ -70,11 +75,26 @@ const MessageDetailPage = ({ params }: { params: { message_id: string } }) => {
   }, [message, user]);
 
   if (isPending) {
-    return <h1>Loading...</h1>;
+    return (
+      <div className="flex justify-center">
+        <Lottie
+          animationData={amongUsAnimation}
+          style={{ width: 150, height: 150 }}
+        />
+      </div>
+    );
   }
 
   if (!message) {
-    return <h1>Not found!</h1>;
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <Lottie
+          animationData={sadFaceAnimation}
+          style={{ width: 150, height: 150 }}
+        />
+        <p>Message not found!</p>
+      </div>
+    );
   }
 
   const { content, youtubeLinks } = message;
@@ -101,7 +121,7 @@ const MessageDetailPage = ({ params }: { params: { message_id: string } }) => {
       <div className="mb-20 container">
         <div className="max-w-[640px] mx-auto overflow-hidden">
           <div className="">
-            <header className="rounded-t-xl flex space-x-2 bg_orange_gradient px-10 py-8">
+            <header className="rounded-t-xl flex space-x-2 bg-orange-600 px-10 py-8">
               <h1 className="text-xl md:text-4xl title-font text-white font-extrabold  w-full">
                 {isPending ? "Loading..." : decryptText(content)}
               </h1>

@@ -42,7 +42,10 @@ const MessageItem = ({
             })}
           </span>
         </div>
-        <Link href={`/messages/${id}`} className="absolute inset-0" />
+        <Link
+          href={`/messages/details?messageId=${id}`}
+          className="absolute inset-0"
+        />
       </div>
     </li>
   );

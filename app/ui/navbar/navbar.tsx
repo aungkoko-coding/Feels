@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import useSessionData from "../../lib/hooks/useSessionData";
 import { useState, useEffect, useRef } from "react";
 import MessageNotification from "./message-notification";
-import authLoadingAni from "../../lib/animations/auth-loading-ani.json";
+import amongUsAnimation from "../../lib/animations/among-us-ani.json";
 import Lottie from "lottie-react";
 
 const Navbar = () => {
@@ -37,7 +37,7 @@ const Navbar = () => {
           {loading && (
             <span className="absolute right-0 top-1/2 -translate-y-1/2">
               <Lottie
-                animationData={authLoadingAni}
+                animationData={amongUsAnimation}
                 style={{ width: 100, height: 100 }}
               />
             </span>
