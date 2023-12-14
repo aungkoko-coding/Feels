@@ -3,7 +3,7 @@ import Link from "next/link";
 const AboutPage = () => {
   return (
     <section className="flex flex-col items-center">
-      <h1 className="title-font italic text-5xl font-extrabold sm:text-6xl text-orange-600 py-2 text-center">
+      <h1 className="title-font italic tracking-tighter text-5xl select-none sm:text-6xl text-orange-600 py-2 text-center">
         Feels
       </h1>
       <p className="desc text-center">
@@ -21,7 +21,10 @@ const AboutPage = () => {
         feelings. Moreover, we offer an option to share these YouTube videos
         publicly, visible only to authenticated users. Sounds amazing, right?
         Let&apos;s start using{" "}
-        <Link href="/" className="font-bold italic title-font text-orange-600">
+        <Link
+          href="/"
+          className="font-bold italic title-font text-orange-600 tracking-tighter select-none"
+        >
           Feels
         </Link>
         !

@@ -72,7 +72,7 @@ const FeedDetailPage: React.FC = () => {
   }, [isErrorLoadingListOfVideos]);
 
   return (
-    <section className="flex flex-col lg:flex-row gap-5 mb-10">
+    <section className="flex flex-col lg:flex-row gap-5 mb-20">
       <div className="basis-[100%] lg:basis-[65%] flex flex-col">
         <div className="relative">
           {isPending ? (

@@ -33,7 +33,7 @@ const FeedPage = () => {
   }, [isError]);
 
   return (
-    <section>
+    <section className="mb-20">
       <h1 className="title-font text-4xl font-extrabold sm:text-5xl orange_gradient py-2 text-center">
         What others feel?
       </h1>

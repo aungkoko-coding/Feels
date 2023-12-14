@@ -8,10 +8,7 @@ import Footer from "../ui/footer";
 import ClientSessionProvider from "../lib/client-session-provider";
 import QueryProvider from "../lib/query-provider";
 import { ToastContainer } from "react-toastify";
-// import AblyClientProvider from "../lib/ably-provider";
 import Script from "next/script";
-// import { getServerSession } from "next-auth";
-// import { authOptions } from "../lib/authOptions";
 
 const inter = Inter({ subsets: ["latin"] });
 

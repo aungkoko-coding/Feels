@@ -3,11 +3,13 @@
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 import QRCode from "qrcode";
+import Lottie from "lottie-react";
 import useSessionData from "@/app/lib/hooks/useSessionData";
 import { domainName } from "@/app/lib/variables";
 import download from "downloadjs";
 import DeleteConfirmModal from "@/app/ui/profile/delete-confirm-modal";
 import UpdateAvatarModal from "@/app/ui/profile/update-avatar-modal";
+import amongUsAnimation from "../../lib/animations/among-us-ani.json";
 
 const ProfilePage = () => {
   const [updateAvatarModalOpen, setUpdateAvatarModalOpen] = useState(false);
@@ -56,7 +58,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container mb-20">
       {user ? (
         <>
           <div className="max-w-[640px] mx-auto flex flex-col">
@@ -165,11 +167,7 @@ const ProfilePage = () => {
         </>
       ) : (
         <div className="absolute inset-0 mt-24 flex items-center justify-center">
-          <img
-            src="/assets/images/loading.gif"
-            alt=""
-            className="w-[250px] h-[250px]"
-          />
+          <Lottie animationData={amongUsAnimation} />
         </div>
       )}
     </div>

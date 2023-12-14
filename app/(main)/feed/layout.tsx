@@ -16,12 +16,7 @@ const FeedLayout = ({
   children: React.ReactNode;
   // play_modal: React.ReactNode;
 }) => {
-  return (
-    <section>
-      {children}
-      {/* {play_modal} */}
-    </section>
-  );
+  return children;
 };
 
 export default FeedLayout;

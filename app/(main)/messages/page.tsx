@@ -44,7 +44,7 @@ const MessagesPage = () => {
   }, []);
 
   return (
-    <div className="container relative mb-10">
+    <div className="container relative mb-20">
       <div className="absolute hidden md:block top-0 left-o w-[200px] ">
         <img src="/assets/images/message.gif" alt="Message box" />
       </div>

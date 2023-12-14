@@ -1,7 +1,16 @@
+"use client";
+import Lottie from "lottie-react";
+import privacyAnimation from "../../lib/animations/privacy-ani.json";
+
 const PrivacyPage = () => {
   return (
-    <section className="flex flex-col items-center">
-      <img src="/assets/images/privacy.png" alt="Privacy Image" />
+    <section className="flex flex-col items-center mb-28">
+      <div className="flex justify-center">
+        <Lottie
+          animationData={privacyAnimation}
+          style={{ width: 250, height: 250 }}
+        />
+      </div>
       <h1 className="title-font text-5xl font-extrabold sm:text-6xl orange_gradient py-2 text-center">
         We Respect Your Privacy
       </h1>

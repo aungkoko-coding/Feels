@@ -36,7 +36,7 @@ const MessageScreenshotModal = ({
       >
         <div className="h-full overflow-auto thin-scrollbar">
           <div className="max-w-[700px] mx-auto">
-            <div className="flex justify-center mb-1">
+            <div className="flex justify-center my-1">
               <button
                 onClick={() => downloadAsImage("message_to_print", "png")}
                 className="text-center bg_orange_gradient text-white p-2 rounded-full"
@@ -53,14 +53,14 @@ const MessageScreenshotModal = ({
               </button>
             </div>
             <article id="message_to_print" className="p-10 bg-white">
-              <header className="rounded-t-xl flex space-x-2 bg-orange-600 px-10 py-8">
+              <header className="rounded-t-xl flex space-x-2 bg-orange-600 px-6 py-8">
                 <h1 className="text-xl md:text-4xl title-font text-white font-extrabold w-full">
                   {message}
                 </h1>
               </header>
               <p
                 placeholder="Reply this message..."
-                className="w-full rounded-b-xl outline-none px-5 py-4 bg-orange-100 text-xl font-medium placeholder:text-black/40 placeholder:font-medium min-h-[200px]"
+                className="w-full rounded-b-xl outline-none px-6 py-4 bg-orange-100 text-xl font-medium placeholder:text-black/40 placeholder:font-medium min-h-[200px]"
               >
                 {replyMessage}
               </p>

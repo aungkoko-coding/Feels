@@ -121,8 +121,8 @@ const MessageDetailPage = () => {
       <div className="mb-20 container">
         <div className="max-w-[640px] mx-auto overflow-hidden">
           <div className="">
-            <header className="rounded-t-xl flex space-x-2 bg-orange-600 px-10 py-8">
-              <h1 className="text-xl md:text-4xl title-font text-white font-extrabold  w-full">
+            <header className="rounded-t-xl flex space-x-2 bg-orange-600 px-6 py-8">
+              <h1 className="text-xl md:text-4xl title-font text-white font-extrabold w-full">
                 {isPending ? "Loading..." : decryptText(content)}
               </h1>
             </header>
@@ -131,7 +131,7 @@ const MessageDetailPage = () => {
               id="reply_message"
               rows={8}
               placeholder="Reply this message..."
-              className="w-full rounded-b-xl outline-none px-5 py-4 bg-orange-100 text-lg font-medium placeholder:text-black/40 placeholder:font-medium"
+              className="w-full rounded-b-xl outline-none px-6 py-4 bg-orange-100 text-lg font-medium placeholder:text-black/40 placeholder:font-medium"
               onChange={(e) => setReplyMessage(e.target.value)}
             ></textarea>
           </div>
