@@ -34,6 +34,7 @@ export const generateMetadata = async ({
       title: "Send Anonymous Message",
       description: `Send anonymous messages to ${username}`,
     },
+    metadataBase: new URL(process.env.NEXT_METADATA_BASE!),
   };
 };
 

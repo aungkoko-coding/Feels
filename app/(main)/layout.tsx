@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   },
   description:
     "Feels is an online platform where users can share their emotions anonymously. Similar to NGL, we go a step further by allowing users to attach a maximum of three YouTube videos along with their messages to easily express their feelings.",
+  metadataBase: new URL(process.env.NEXT_METADATA_BASE!),
 };
 
 // export const dynamic = "force-static";
