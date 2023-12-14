@@ -35,11 +35,11 @@ export default function RootLayout({
   // console.log({ session });
   return (
     <html lang="en">
-      <Script
-        strategy="beforeInteractive"
-        src="https://cdn.ably.com/lib/ably.min-1.js"
-      />
       <body className={inter.className}>
+        <Script
+          strategy="beforeInteractive"
+          src="https://cdn.ably.com/lib/ably.min-1.js"
+        />
         <div className="flex flex-col min-h-screen">
           <div className="main">
             <div className="gradient" />

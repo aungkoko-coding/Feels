@@ -1,3 +1,7 @@
+"use client";
+import Lottie from "lottie-react";
+import heroAni from "../lib/animations/hero-ani.json";
+
 export default function Home() {
   return (
     <>
@@ -14,18 +18,7 @@ export default function Home() {
           authentically through anonymous messages paired with handpicked
           YouTube links. Your feelings, your way.
         </p>
-        <img src="/assets/images/hero.png" alt="Hero Image" className="mt-2" />
-
-        {/* <div className="mt-10 flex justify-center">
-          <div className="space-x-5 flex">
-            <p>
-              Total Users: <span className="font-bold">5</span>
-            </p>
-            <p>
-              Total Messages: <span className="font-bold">10</span>
-            </p>
-          </div>
-        </div> */}
+        <Lottie animationData={heroAni} style={{ width: 200, height: 200 }} />
       </section>
     </>
   );

@@ -31,7 +31,7 @@ const Navbar = () => {
     <header ref={headerRef} className="z-20 sticky top-0 duration-200">
       <nav className="container px-1 flex py-2 items-center ">
         <Link href="/">
-          <img src="/assets/images/logo.png" alt="Logo" />
+          <img src="/assets/images/logo.png" alt="Logo" className="w-16 h-10" />
         </Link>
         <div className="ml-auto flex relative">
           {loading && (

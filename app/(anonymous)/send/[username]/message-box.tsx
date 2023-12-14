@@ -105,7 +105,7 @@ const MessageBox = ({ user }: { user: UserType }) => {
         ) : (
           <>
             <form id="sendForm" onSubmit={handleSubmit}>
-              <header className="rounded-t-xl flex space-x-2 bg-white px-5 py-4">
+              <header className="rounded-t-xl flex gap-2 bg-white px-5 py-4">
                 <div className="w-10 h-10 uppercase rounded-full flex items-center justify-center bg-pink-700 text-white">
                   {imgUrl && !errorLoadingAvatar ? (
                     <img
@@ -118,7 +118,7 @@ const MessageBox = ({ user }: { user: UserType }) => {
                     username[0]
                   )}
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col flex-1">
                   <h2 className="text-sm">@{username}</h2>
                   <p className="text-sm font-semibold">
                     Share your thoughts and emotions anonymously!

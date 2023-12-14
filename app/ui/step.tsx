@@ -10,7 +10,7 @@ const Step = ({
       <span className="absolute shadow-md left-5 top-0 -translate-y-1/2 bg-black text-white w-10 h-10 flex justify-center items-center rounded-full">
         {step}
       </span>
-      <p className="orange_gradient text-lg sm:text-xl font-bold">
+      <p className="text-orange-600 text-lg sm:text-xl font-bold">
         {description}
       </p>
     </li>
