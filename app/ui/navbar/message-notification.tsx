@@ -2,7 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
 import { toast } from "react-toastify";
-import { useChannel } from "ably/react";
+// const Ably = require("ably");
 // import { io } from "socket.io-client";
 import { axiosGetData } from "@/app/lib/axios-config";
 import { MessageType } from "@/app/lib/definitions";
@@ -12,10 +12,11 @@ export const messagesQueryKey = ["messages"];
 // const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL!);
 // const socket = new WebSocket(process.env.NEXT_PUBLIC_SOCKET_URL!);
 
+declare const Ably: any;
+
 const MessageNotification = () => {
-  const { user } = useSessionData();
-  const { channel } = useChannel("ably-notification");
   const queryClient = useQueryClient();
+  const { user } = useSessionData();
 
   const {
     data: messages,
@@ -35,20 +36,36 @@ const MessageNotification = () => {
   }, [messages]);
 
   useEffect(() => {
+    const ably = new Ably.Realtime.Promise({
+      authUrl: `${process.env.NEXT_PUBLIC_API_URL}/ably/auth`,
+    });
     if (user) {
-      channel.subscribe(`message-${user.username}-${user.id}`, (message) => {
-        // console.log(message);
-        queryClient.setQueryData<MessageType[]>(
-          messagesQueryKey,
-          (prevData: any) => {
-            return [message.data, ...(prevData || [])];
+      (async () => {
+        await ably.connection.once("connected");
+
+        // get the channel to subscribe to
+        const channel = ably.channels.get("ably-notification");
+
+        /*
+          Subscribe to a channel.
+          The promise resolves when the channel is attached
+          (and resolves synchronously if the channel is already attached).
+        */
+        await channel.subscribe(
+          `message-${user.username}-${user.id}`,
+          (message: any) => {
+            queryClient.setQueryData<MessageType[]>(
+              messagesQueryKey,
+              (prevData: any) => {
+                return [message.data, ...(prevData || [])];
+              }
+            );
           }
         );
-      });
+      })();
     }
-
     return () => {
-      channel.unsubscribe();
+      ably.close();
     };
   }, [user]);
 

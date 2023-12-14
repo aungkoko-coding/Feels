@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 import "../globals.css";
 import "react-toastify/ReactToastify.min.css";
 import Navbar from "../ui/navbar/navbar";
@@ -7,7 +8,8 @@ import Footer from "../ui/footer";
 import ClientSessionProvider from "../lib/client-session-provider";
 import QueryProvider from "../lib/query-provider";
 import { ToastContainer } from "react-toastify";
-import AblyClientProvider from "../lib/ably-provider";
+// import AblyClientProvider from "../lib/ably-provider";
+import Script from "next/script";
 // import { getServerSession } from "next-auth";
 // import { authOptions } from "../lib/authOptions";
 
@@ -33,6 +35,10 @@ export default function RootLayout({
   // console.log({ session });
   return (
     <html lang="en">
+      <Script
+        strategy="beforeInteractive"
+        src="https://cdn.ably.com/lib/ably.min-1.js"
+      />
       <body className={inter.className}>
         <div className="flex flex-col min-h-screen">
           <div className="main">
@@ -41,13 +47,15 @@ export default function RootLayout({
           <ToastContainer />
           <ClientSessionProvider>
             <QueryProvider>
-              <AblyClientProvider>
+              <Suspense fallback={<h1>Loading...</h1>}>
+                {/* <AblyClientProvider> */}
                 <Navbar />
                 <main className="relative container px-1 mt-10">
                   {children}
                 </main>
                 <Footer />
-              </AblyClientProvider>
+                {/* </AblyClientProvider> */}
+              </Suspense>
             </QueryProvider>
           </ClientSessionProvider>
         </div>
