@@ -10,7 +10,7 @@ An online platform where users can share their emotions anonymously. Similar to 
 - Sending anonymous messages optionally attach with maximum three handpicked YouTube links
 - Real-time incoming messages
 - Able to take images of incoming messages along with your replies
-- Message decryption
+- Message encryption
 
 ## Tech Stack
 
