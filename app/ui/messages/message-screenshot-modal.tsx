@@ -1,4 +1,5 @@
 import downloadAsImage from "@/utils/download-as-img";
+import { useEffect } from "react";
 
 const MessageScreenshotModal = ({
   open,
@@ -11,6 +12,14 @@ const MessageScreenshotModal = ({
   open: boolean;
   onClose: () => void;
 }) => {
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
+
   return (
     <div
       className={`fixed z-[999] inset-0 bg-black/70 duration-300 ${

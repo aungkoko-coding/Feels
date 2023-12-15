@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/app/lib/axios-config";
 import useSessionData from "@/app/lib/hooks/useSessionData";
 import axios, { AxiosError, CanceledError } from "axios";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const UpdateAvatarModal = ({
   open,
@@ -15,6 +15,8 @@ const UpdateAvatarModal = ({
   const [errorMsg, setErrorMsg] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
   const abortRef = useRef<AbortController | null>();
+  const modalContainerRef = useRef<HTMLDivElement>(null);
+  const avatarInputRef = useRef<HTMLInputElement>(null);
 
   const handleUpdateCancel = () => {
     abortRef.current?.abort();
@@ -22,8 +24,8 @@ const UpdateAvatarModal = ({
     onClose();
   };
 
-  const handleDeletionConfirm = () => {
-    if (!isUpdating) {
+  const handleAvatarUpdate = () => {
+    if (!isUpdating && avatarUrl) {
       setIsUpdating(true);
       abortRef.current = new AbortController();
       (async () => {
@@ -60,8 +62,30 @@ const UpdateAvatarModal = ({
     }
   };
 
+  // For keyboard accessibility
+  useEffect(() => {
+    const focusUpdateButton = () => {
+      if (open) {
+        avatarInputRef.current?.focus();
+      }
+    };
+
+    modalContainerRef.current?.addEventListener(
+      "transitionend",
+      focusUpdateButton
+    );
+
+    return () => {
+      modalContainerRef.current?.removeEventListener(
+        "transitionend",
+        focusUpdateButton
+      );
+    };
+  }, [open]);
+
   return (
     <div
+      ref={modalContainerRef}
       role="modal"
       className={`fixed inset-0 bg-black/80 z-[999] duration-300 ${
         open ? "scale-100" : "pointer-events-none scale-0"
@@ -70,6 +94,7 @@ const UpdateAvatarModal = ({
       <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 p-5 max-w-[400px] w-full rounded-md bg-white">
         <h1 className="font-bold">Update your avatar</h1>
         <input
+          ref={avatarInputRef}
           type="text"
           value={avatarUrl}
           onChange={(e) => setAvatarUrl(e.target.value)}
@@ -90,7 +115,7 @@ const UpdateAvatarModal = ({
           </button>
           <button
             disabled={isUpdating}
-            onClick={handleDeletionConfirm}
+            onClick={handleAvatarUpdate}
             className="px-3 py-2 rounded-md active:scale-95 duration-200 bg-orange-600 text-white"
           >
             {isUpdating ? "Updating..." : "Update"}

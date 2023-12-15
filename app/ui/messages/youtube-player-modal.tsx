@@ -1,5 +1,6 @@
 import decryptText from "@/app/lib/decrypt";
 import { YoutubeLinkType } from "@/app/lib/definitions";
+import { useEffect } from "react";
 
 const YoutubePlayerFormModal = ({
   open,
@@ -10,6 +11,14 @@ const YoutubePlayerFormModal = ({
   open: boolean;
   onClose: () => void;
 }) => {
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
+
   return (
     <div
       className={`fixed z-[999] inset-0 bg-black/70 duration-300 ${

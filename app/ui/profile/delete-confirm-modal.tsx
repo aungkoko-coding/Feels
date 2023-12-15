@@ -5,13 +5,13 @@ import axios, { AxiosError, CanceledError } from "axios";
 import { signOut } from "next-auth/react";
 import { useRef, useState } from "react";
 
-function wait() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      reject(new Error("Deletion failed!"));
-    }, 5000);
-  });
-}
+// function wait() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       reject(new Error("Deletion failed!"));
+//     }, 5000);
+//   });
+// }
 
 const DeleteConfirmModal = ({
   open,
