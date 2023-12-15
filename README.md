@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Feels
 
-## Getting Started
+An online platform where users can share their emotions anonymously. Similar to [NGL](https://ngl.link/), I go a step further by allowing users to attach a maximum of three YouTube videos along with their messages to easily express their feelings. Moreover, I offer an option to share these YouTube videos publicly, visible only to authenticated users.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Authentication / Authorization
+- Feed (to entertain users)
+- Profile with functions (update avatar, delete account, share link, download QR code)
+- Sending anonymous messages optionally attach with maximum three handpicked YouTube links
+- Real-time incoming messages
+- Able to take images of incoming messages along with your replies
+- Message decryption
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- TypeScript
+- Nest.js (for [API](https://github.com/AKK-soft-dev/feels-api))
+- Next.js
+- React Query
+- [Ably](https://ably.com/)
+- axios
+- next-auth
+- html-to-image
+- qrcode
+- crypto
+- react-toastify
+- @formkit/auto-animate
+- Tailwind CSS
+- [others](https://github.com/AKK-soft-dev/feels-api/blob/main/package.json)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Demo
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+https://feels-and-emotions.vercel.app/
