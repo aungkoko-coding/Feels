@@ -32,9 +32,9 @@ const MessageItem = ({
             <path d="M216,40H40A16,16,0,0,0,24,56V184a16,16,0,0,0,16,16l59.5.06,14.78,24.17a16,16,0,0,0,27.41.06L156.53,200H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM84,132a12,12,0,1,1,12-12A12,12,0,0,1,84,132Zm44,0a12,12,0,1,1,12-12A12,12,0,0,1,128,132Zm44,0a12,12,0,1,1,12-12A12,12,0,0,1,172,132Z"></path>
           </svg>
         </span>
-        <div>
-          <p className="flex items-center space-x-2 font-medium truncate">
-            <span>{seen ? decryptText(content) : "New message"}</span>
+        <div className="flex-1">
+          <p className="font-medium line-clamp-1">
+            {seen ? decryptText(content) : "New message"}
           </p>
           <span className="text-[12px] mt-2 block text-gray-500">
             {formatDistanceToNow(new Date(createdAt), {
