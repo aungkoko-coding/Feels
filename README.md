@@ -32,3 +32,45 @@ An online platform where users can share their emotions anonymously. Similar to 
 ## Demo
 
 https://feels-and-emotions.vercel.app/
+
+## Project Images
+
+![Sign Up Page](project-images/signup.png)
+_Sign Up Page_
+<br>
+
+![Sign In Page](project-images/signin.png)
+_Sign In Page_
+<br>
+
+![Home Page](project-images/home.png)
+_Home Page_
+<br>
+
+![Feed Page](project-images/feed.png)
+_Feed Page_
+<br>
+
+![Play Video Page](project-images/play.png)
+_Play Video Page_
+<br>
+
+![Real-time Incoming Messages Page](project-images/messages.png)
+_Real-time Incoming Messages Page_
+<br>
+
+![Message Detail Page](project-images/message-detail.png)
+_Message Detail Page_
+<br>
+
+![Generate Image](project-images/generate-img.png)
+_Generate Image_
+<br>
+
+![Profile Page](project-images/profile.png)
+_Profile Page_
+<br>
+
+![Message Box Page](project-images/message-box.png)
+_Message Box Page_
+<br>
